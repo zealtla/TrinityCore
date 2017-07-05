@@ -132,7 +132,7 @@ void WorldSession::SendTrainerList(ObjectGuid guid, const std::string& strTitle,
     SetCurrentTrainer(trainerEntry);
     SetHasTrainerSpellCost(spell_cost);
 
-    Creature* unit = NULL;
+    Creature* unit = nullptr;
     if (GetPlayer()->GetGUID() != guid)
     {
         unit = GetPlayer()->GetNPCIfCanInteractWith(guid, UNIT_NPC_FLAG_TRAINER);
@@ -147,7 +147,7 @@ void WorldSession::SendTrainerList(ObjectGuid guid, const std::string& strTitle,
     if (GetPlayer()->HasUnitState(UNIT_STATE_DIED))
         GetPlayer()->RemoveAurasByType(SPELL_AURA_FEIGN_DEATH);
 
-    TrainerSpellData const* trainer_spells = trainerEntry ? sObjectMgr->GetNpcTrainerSpells(trainerEntry) : unit ? unit->GetTrainerSpells() : NULL;
+    TrainerSpellData const* trainer_spells = trainerEntry ? sObjectMgr->GetNpcTrainerSpells(trainerEntry) : unit ? unit->GetTrainerSpells() : nullptr;
     if (!trainer_spells)
     {
         TC_LOG_DEBUG("network", "WORLD: SendTrainerList - Training spells not found for %s", guid.ToString().c_str());
@@ -234,6 +234,7 @@ void WorldSession::SendTrainerList(ObjectGuid guid, const std::string& strTitle,
     data << strTitle;
 
     data.put<uint32>(count_pos, count);
+    GetPlayer()->PlayerTalkClass->GetGossipMenu().SetSenderGUID(guid);
     SendPacket(&data);
 }
 
@@ -245,7 +246,7 @@ void WorldSession::HandleTrainerBuySpellOpcode(WorldPacket& recvData)
     recvData >> guid >> spellId;
     TC_LOG_DEBUG("network", "WORLD: Received CMSG_TRAINER_BUY_SPELL %s, learn spell id is: %u", guid.ToString().c_str(), spellId);
 
-    Creature* trainer = NULL;
+    Creature* trainer = nullptr;
     if (guid != GetPlayer()->GetGUID())
     {
         trainer = GetPlayer()->GetNPCIfCanInteractWith(guid, UNIT_NPC_FLAG_TRAINER);
@@ -255,6 +256,9 @@ void WorldSession::HandleTrainerBuySpellOpcode(WorldPacket& recvData)
             return;
         }
     }
+
+    if (guid != GetPlayer()->PlayerTalkClass->GetGossipMenu().GetSenderGUID())
+        return; // Cheating
 
     // remove fake death
     if (GetPlayer()->HasUnitState(UNIT_STATE_DIED))
@@ -279,7 +283,7 @@ void WorldSession::HandleTrainerBuySpellOpcode(WorldPacket& recvData)
     }
 
     // check present spell in trainer spell list
-    TrainerSpellData const* trainer_spells = GetCurrentTrainer() ? sObjectMgr->GetNpcTrainerSpells(GetCurrentTrainer()) : trainer ? trainer->GetTrainerSpells() : NULL;
+    TrainerSpellData const* trainer_spells = GetCurrentTrainer() ? sObjectMgr->GetNpcTrainerSpells(GetCurrentTrainer()) : trainer ? trainer->GetTrainerSpells() : nullptr;
     if (!trainer_spells)
         return;
 
@@ -324,23 +328,16 @@ void WorldSession::HandleGossipHelloOpcode(WorldPacket& recvData)
     ObjectGuid guid;
     recvData >> guid;
 
-    Creature* unit = NULL;
-    if (GetPlayer()->GetGUID() != guid)
+    Creature* unit = GetPlayer()->GetNPCIfCanInteractWith(guid, UNIT_NPC_FLAG_GOSSIP);
+    if (!unit)
     {
-        unit = GetPlayer()->GetNPCIfCanInteractWith(guid, UNIT_NPC_FLAG_GOSSIP);
-        if (!unit)
-        {
-            TC_LOG_DEBUG("network", "WORLD: HandleGossipHelloOpcode - %s not found or you can not interact with him.", guid.ToString().c_str());
-            return;
-        }
+        TC_LOG_DEBUG("network", "WORLD: HandleGossipHelloOpcode - %s not found or you can not interact with him.", guid.ToString().c_str());
+        return;
     }
 
     // set faction visible if needed
-    if (unit)
-    {
-        if (FactionTemplateEntry const* factionTemplateEntry = sFactionTemplateStore.LookupEntry(unit->GetFaction()))
-            _player->GetReputationMgr().SetVisible(factionTemplateEntry);
-    }
+    if (FactionTemplateEntry const* factionTemplateEntry = sFactionTemplateStore.LookupEntry(unit->GetFaction()))
+        _player->GetReputationMgr().SetVisible(factionTemplateEntry);
 
     GetPlayer()->RemoveAurasWithInterruptFlags(AURA_INTERRUPT_FLAG_TALK);
     // remove fake death
@@ -350,22 +347,18 @@ void WorldSession::HandleGossipHelloOpcode(WorldPacket& recvData)
     // and if he has pure gossip or is banker and moves or is tabard designer?
     //if (unit->IsArmorer() || unit->IsCivilian() || unit->IsQuestGiver() || unit->IsServiceProvider() || unit->IsGuard())
     {
-        if (unit)
-            unit->StopMoving();
+        unit->StopMoving();
     }
 
     // If spiritguide, no need for gossip menu, just put player into resurrect queue
-    if (unit)
+    if (unit->IsSpiritGuide())
     {
-        if (unit->IsSpiritGuide())
+        Battleground* bg = _player->GetBattleground();
+        if (bg)
         {
-            Battleground* bg = _player->GetBattleground();
-            if (bg)
-            {
-                bg->AddPlayerToResurrectQueue(unit->GetGUID(), _player->GetGUID());
-                sBattlegroundMgr->SendAreaSpiritHealerQueryOpcode(_player, bg, unit->GetGUID());
-                return;
-            }
+            bg->AddPlayerToResurrectQueue(unit->GetGUID(), _player->GetGUID());
+            sBattlegroundMgr->SendAreaSpiritHealerQueryOpcode(_player, bg, unit->GetGUID());
+            return;
         }
     }
 
