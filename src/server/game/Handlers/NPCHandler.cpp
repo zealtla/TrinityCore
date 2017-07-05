@@ -121,26 +121,33 @@ void WorldSession::HandleTrainerListOpcode(WorldPacket& recvData)
     SendTrainerList(guid);
 }
 
-void WorldSession::SendTrainerList(ObjectGuid guid)
+void WorldSession::SendTrainerList(ObjectGuid guid, uint32 trainerEntry, bool spell_cost)
 {
     std::string str = GetTrinityString(LANG_NPC_TAINER_HELLO);
-    SendTrainerList(guid, str);
+    SendTrainerList(guid, str, trainerEntry, spell_cost);
 }
 
-void WorldSession::SendTrainerList(ObjectGuid guid, const std::string& strTitle)
+void WorldSession::SendTrainerList(ObjectGuid guid, const std::string& strTitle, uint32 trainerEntry, bool spell_cost)
 {
-    Creature* unit = GetPlayer()->GetNPCIfCanInteractWith(guid, UNIT_NPC_FLAG_TRAINER);
-    if (!unit)
+    SetCurrentTrainer(trainerEntry);
+    SetHasTrainerSpellCost(spell_cost);
+
+    Creature* unit = NULL;
+    if (GetPlayer()->GetGUID() != guid)
     {
-        TC_LOG_DEBUG("network", "WORLD: SendTrainerList - %s not found or you can not interact with him.", guid.ToString().c_str());
-        return;
+        unit = GetPlayer()->GetNPCIfCanInteractWith(guid, UNIT_NPC_FLAG_TRAINER);
+        if (!unit)
+        {
+            TC_LOG_DEBUG("network", "WORLD: SendTrainerList - %s not found or you can not interact with him.", guid.ToString().c_str());
+            return;
+        }
     }
 
     // remove fake death
     if (GetPlayer()->HasUnitState(UNIT_STATE_DIED))
         GetPlayer()->RemoveAurasByType(SPELL_AURA_FEIGN_DEATH);
 
-    TrainerSpellData const* trainer_spells = unit->GetTrainerSpells();
+    TrainerSpellData const* trainer_spells = trainerEntry ? sObjectMgr->GetNpcTrainerSpells(trainerEntry) : unit ? unit->GetTrainerSpells() : NULL;
     if (!trainer_spells)
     {
         TC_LOG_DEBUG("network", "WORLD: SendTrainerList - Training spells not found for %s", guid.ToString().c_str());
@@ -155,7 +162,7 @@ void WorldSession::SendTrainerList(ObjectGuid guid, const std::string& strTitle)
     data << uint32(trainer_spells->spellList.size());
 
     // reputation discount
-    float fDiscountMod = _player->GetReputationPriceDiscount(unit);
+    float fDiscountMod = unit ? _player->GetReputationPriceDiscount(unit) : 1.0f;
     bool can_learn_primary_prof = GetPlayer()->GetFreePrimaryProfessionPoints() > 0;
 
     uint32 count = 0;
@@ -185,7 +192,7 @@ void WorldSession::SendTrainerList(ObjectGuid guid, const std::string& strTitle)
 
         data << uint32(tSpell->SpellID);                    // learned spell (or cast-spell in profession case)
         data << uint8(state == TRAINER_SPELL_GREEN_DISABLED ? TRAINER_SPELL_GREEN : state);
-        data << uint32(floor(tSpell->MoneyCost * fDiscountMod));
+        data << uint32(spell_cost ? floor(tSpell->MoneyCost * fDiscountMod) : 0);
 
         data << uint32(primary_prof_first_rank && can_learn_primary_prof ? 1 : 0);
                                                             // primary prof. learn confirmation dialog
@@ -238,11 +245,15 @@ void WorldSession::HandleTrainerBuySpellOpcode(WorldPacket& recvData)
     recvData >> guid >> spellId;
     TC_LOG_DEBUG("network", "WORLD: Received CMSG_TRAINER_BUY_SPELL %s, learn spell id is: %u", guid.ToString().c_str(), spellId);
 
-    Creature* trainer = GetPlayer()->GetNPCIfCanInteractWith(guid, UNIT_NPC_FLAG_TRAINER);
-    if (!trainer)
+    Creature* trainer = NULL;
+    if (guid != GetPlayer()->GetGUID())
     {
-        TC_LOG_DEBUG("network", "WORLD: HandleTrainerBuySpellOpcode - %s not found or you can not interact with him.", guid.ToString().c_str());
-        return;
+        trainer = GetPlayer()->GetNPCIfCanInteractWith(guid, UNIT_NPC_FLAG_TRAINER);
+        if (!trainer)
+        {
+            TC_LOG_DEBUG("network", "WORLD: HandleTrainerBuySpellOpcode - %s not found or you can not interact with him.", guid.ToString().c_str());
+            return;
+        }
     }
 
     // remove fake death
@@ -250,19 +261,25 @@ void WorldSession::HandleTrainerBuySpellOpcode(WorldPacket& recvData)
         GetPlayer()->RemoveAurasByType(SPELL_AURA_FEIGN_DEATH);
 
     // check race for mount trainers
-    if (trainer->GetCreatureTemplate()->trainer_type == TRAINER_TYPE_MOUNTS)
+    if (trainer)
     {
-        if (uint32 trainerRace = trainer->GetCreatureTemplate()->trainer_race)
-            if (_player->getRace() != trainerRace)
-                return;
+        if (trainer->GetCreatureTemplate()->trainer_type == TRAINER_TYPE_MOUNTS)
+        {
+            if (uint32 trainerRace = trainer->GetCreatureTemplate()->trainer_race)
+                if (_player->getRace() != trainerRace)
+                    return;
+        }
     }
 
     // check class for class trainers
-    if (_player->getClass() != trainer->GetCreatureTemplate()->trainer_class && trainer->GetCreatureTemplate()->trainer_type == TRAINER_TYPE_CLASS)
-        return;
+    if (trainer)
+    {
+        if (_player->getClass() != trainer->GetCreatureTemplate()->trainer_class && trainer->GetCreatureTemplate()->trainer_type == TRAINER_TYPE_CLASS)
+            return;
+    }
 
     // check present spell in trainer spell list
-    TrainerSpellData const* trainer_spells = trainer->GetTrainerSpells();
+    TrainerSpellData const* trainer_spells = GetCurrentTrainer() ? sObjectMgr->GetNpcTrainerSpells(GetCurrentTrainer()) : trainer ? trainer->GetTrainerSpells() : NULL;
     if (!trainer_spells)
         return;
 
@@ -276,16 +293,17 @@ void WorldSession::HandleTrainerBuySpellOpcode(WorldPacket& recvData)
         return;
 
     // apply reputation discount
-    uint32 nSpellCost = uint32(floor(trainer_spell->MoneyCost * _player->GetReputationPriceDiscount(trainer)));
+    uint32 nSpellCost = trainer ? uint32(floor(trainer_spell->MoneyCost * _player->GetReputationPriceDiscount(trainer))) : 1.0f;
 
     // check money requirement
-    if (!_player->HasEnoughMoney(nSpellCost))
+    if (!_player->HasEnoughMoney(nSpellCost) && HasTrainerSpellCost())
         return;
 
-    _player->ModifyMoney(-int32(nSpellCost));
+    if (HasTrainerSpellCost())
+        _player->ModifyMoney(-int32(nSpellCost));
 
-    trainer->SendPlaySpellVisual(179); // 53 SpellCastDirected
-    trainer->SendPlaySpellImpact(_player->GetGUID(), 362); // 113 EmoteSalute
+    trainer ? trainer->SendPlaySpellVisual(179) : GetPlayer()->SendPlaySpellVisual(179); // 53 SpellCastDirected
+    trainer ? trainer->SendPlaySpellImpact(_player->GetGUID(), 362) : GetPlayer()->SendPlaySpellImpact(_player->GetGUID(), 362); // 113 EmoteSalute
 
     // learn explicitly or cast explicitly
     if (trainer_spell->IsCastable())
@@ -306,16 +324,23 @@ void WorldSession::HandleGossipHelloOpcode(WorldPacket& recvData)
     ObjectGuid guid;
     recvData >> guid;
 
-    Creature* unit = GetPlayer()->GetNPCIfCanInteractWith(guid, UNIT_NPC_FLAG_GOSSIP);
-    if (!unit)
+    Creature* unit = NULL;
+    if (GetPlayer()->GetGUID() != guid)
     {
-        TC_LOG_DEBUG("network", "WORLD: HandleGossipHelloOpcode - %s not found or you can not interact with him.", guid.ToString().c_str());
-        return;
+        unit = GetPlayer()->GetNPCIfCanInteractWith(guid, UNIT_NPC_FLAG_GOSSIP);
+        if (!unit)
+        {
+            TC_LOG_DEBUG("network", "WORLD: HandleGossipHelloOpcode - %s not found or you can not interact with him.", guid.ToString().c_str());
+            return;
+        }
     }
 
     // set faction visible if needed
-    if (FactionTemplateEntry const* factionTemplateEntry = sFactionTemplateStore.LookupEntry(unit->GetFaction()))
-        _player->GetReputationMgr().SetVisible(factionTemplateEntry);
+    if (unit)
+    {
+        if (FactionTemplateEntry const* factionTemplateEntry = sFactionTemplateStore.LookupEntry(unit->GetFaction()))
+            _player->GetReputationMgr().SetVisible(factionTemplateEntry);
+    }
 
     GetPlayer()->RemoveAurasWithInterruptFlags(AURA_INTERRUPT_FLAG_TALK);
     // remove fake death
@@ -325,18 +350,22 @@ void WorldSession::HandleGossipHelloOpcode(WorldPacket& recvData)
     // and if he has pure gossip or is banker and moves or is tabard designer?
     //if (unit->IsArmorer() || unit->IsCivilian() || unit->IsQuestGiver() || unit->IsServiceProvider() || unit->IsGuard())
     {
-        unit->StopMoving();
+        if (unit)
+            unit->StopMoving();
     }
 
     // If spiritguide, no need for gossip menu, just put player into resurrect queue
-    if (unit->IsSpiritGuide())
+    if (unit)
     {
-        Battleground* bg = _player->GetBattleground();
-        if (bg)
+        if (unit->IsSpiritGuide())
         {
-            bg->AddPlayerToResurrectQueue(unit->GetGUID(), _player->GetGUID());
-            sBattlegroundMgr->SendAreaSpiritHealerQueryOpcode(_player, bg, unit->GetGUID());
-            return;
+            Battleground* bg = _player->GetBattleground();
+            if (bg)
+            {
+                bg->AddPlayerToResurrectQueue(unit->GetGUID(), _player->GetGUID());
+                sBattlegroundMgr->SendAreaSpiritHealerQueryOpcode(_player, bg, unit->GetGUID());
+                return;
+            }
         }
     }
 

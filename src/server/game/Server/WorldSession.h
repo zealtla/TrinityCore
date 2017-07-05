@@ -344,8 +344,8 @@ class TC_GAME_API WorldSession
 
         void SendNameQueryOpcode(ObjectGuid guid);
 
-        void SendTrainerList(ObjectGuid guid);
-        void SendTrainerList(ObjectGuid guid, std::string const& strTitle);
+        void SendTrainerList(ObjectGuid guid, uint32 trainer_entry = 0, bool spell_cost = true);
+        void SendTrainerList(ObjectGuid guid, std::string const& strTitle, uint32 trainerEntry = 0, bool spell_cost = true);
         void SendListInventory(ObjectGuid guid);
         void SendShowBank(ObjectGuid guid);
         bool CanOpenMailBox(ObjectGuid guid);
@@ -422,6 +422,12 @@ class TC_GAME_API WorldSession
 
         // Account mute time
         time_t m_muteTime;
+
+        // Multitrainer
+        uint32 GetCurrentTrainer() const { return m_current_trainer; }
+        void SetCurrentTrainer(uint32 entry) { m_current_trainer = entry; }
+        bool HasTrainerSpellCost() const { return m_current_trainer_cost; }
+        void SetHasTrainerSpellCost(bool has_spell_cost) { m_current_trainer_cost = has_spell_cost; }
 
         // Locales
         LocaleConstant GetSessionDbcLocale() const { return m_sessionDbcLocale; }
@@ -1051,6 +1057,9 @@ class TC_GAME_API WorldSession
         uint32 _accountId;
         std::string _accountName;
         uint8 m_expansion;
+
+        uint32 m_current_trainer;
+        bool m_current_trainer_cost;
 
         typedef std::list<AddonInfo> AddonsList;
 
