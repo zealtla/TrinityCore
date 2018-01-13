@@ -24,6 +24,7 @@
 #include "ScriptMgr.h"
 #include "Containers.h"
 #include "GameTime.h"
+#include "Optional.h"
 #include "Player.h"
 #include "SpellAuraEffects.h"
 #include "SpellHistory.h"
@@ -1012,7 +1013,7 @@ class spell_dru_lifebloom : public SpellScriptLoader
                 int32 healAmount = aurEff->GetAmount();
                 if (Unit* caster = GetCaster())
                 {
-                    healAmount = caster->SpellHealingBonusDone(target, GetSpellInfo(), healAmount, HEAL, stack);
+                    healAmount = caster->SpellHealingBonusDone(target, GetSpellInfo(), healAmount, HEAL, { }, stack);
                     healAmount = target->SpellHealingBonusTaken(caster, GetSpellInfo(), healAmount, HEAL, stack);
 
                     // restore mana

@@ -22,6 +22,7 @@
  */
 
 #include "ScriptMgr.h"
+#include "Optional.h"
 #include "Player.h"
 #include "Random.h"
 #include "SpellAuraEffects.h"
@@ -102,7 +103,7 @@ class spell_warr_bloodthirst : public SpellScriptLoader
 
                 if (Unit* target = GetHitUnit())
                 {
-                    damage = GetCaster()->SpellDamageBonusDone(target, GetSpellInfo(), uint32(damage), SPELL_DIRECT_DAMAGE);
+                    damage = GetCaster()->SpellDamageBonusDone(target, GetSpellInfo(), uint32(damage), SPELL_DIRECT_DAMAGE, { });
                     damage = target->SpellDamageBonusTaken(GetCaster(), GetSpellInfo(), uint32(damage), SPELL_DIRECT_DAMAGE);
                 }
                 SetHitDamage(damage);
