@@ -1072,7 +1072,7 @@ class TC_GAME_API WorldSession
         rbac::RBACData* _RBACData;
         uint32 expireTime;
         bool forceExit;
-        uint32 m_currentVendorEntry;
+        uint32 m_currentVendorEntry = 0;
         ObjectGuid m_currentBankerGUID;
 
         WorldSession(WorldSession const& right) = delete;
