@@ -3,13 +3,13 @@ dist: trusty
 
 language: cpp
 
-cache: ccache
-
 compiler:
   - clang
 
 git:
   depth: 100
+
+cache: ccache
 
 addons:
   apt:
