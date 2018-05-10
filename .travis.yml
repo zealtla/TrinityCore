@@ -2,13 +2,14 @@ sudo: false
 dist: trusty
 
 language: cpp
+
+cache: ccache
+
 compiler:
   - clang
 
 git:
   depth: 100
-
-cache: ccache
 
 addons:
   apt:
@@ -43,7 +44,7 @@ install:
   - mkdir bin
   - cd bin
   - /usr/sbin/update-ccache-symlinks
-  - which g++ gcc
+  - which g++ gcc clang clang++
   - cmake ../ -DWITH_WARNINGS=1 -DWITH_COREDEBUG=0 -DUSE_COREPCH=0 -DUSE_SCRIPTPCH=0 -DTOOLS=1 -DSCRIPTS=dynamic -DSERVERS=1 -DNOJEM=0 -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-Werror" -DCMAKE_CXX_FLAGS="-Werror" -DCMAKE_C_FLAGS_DEBUG="-DNDEBUG" -DCMAKE_CXX_FLAGS_DEBUG="-DNDEBUG" -DCMAKE_INSTALL_PREFIX=check_install
   - cd ..
   - chmod +x contrib/check_updates.sh
