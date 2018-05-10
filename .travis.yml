@@ -39,8 +39,6 @@ before_install:
   - git tag -a -m "Travis build" init
 
 install:
-  - ln -s /usr/bin/ccache /usr/local/clang-5.0.0/bin/clang
-  - ln -s /usr/bin/ccache /usr/local/clang-5.0.0/bin/clang++
   - export CXX="ccache clang++"
   - export CC="ccache clang"
   - which g++ gcc clang clang++ cc c++
