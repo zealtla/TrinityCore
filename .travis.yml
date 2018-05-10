@@ -41,6 +41,7 @@ before_install:
 install:
   - export CXX="ccache clang++"
   - export CC="ccache clang"
+  - export CCACHE_CPP2="true"
   - which g++ gcc clang clang++ cc c++
   - mysql -uroot -e 'create database test_mysql;'
   - if [ "${TRAVIS_EVENT_TYPE}" == "cron" ]; then git pull https://github.com/TrinityCore/TrinityCore.git 3.3.5; fi;
