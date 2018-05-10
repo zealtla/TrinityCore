@@ -39,9 +39,9 @@ before_install:
   - git tag -a -m "Travis build" init
 
 install:
-  - cp ccache /usr/local/bin/
-  - ln -s ccache /usr/local/clang-5.0.0/bin/clang
-  - ln -s ccache /usr/local/clang-5.0.0/bin/clang++
+  - cp /usr/bin/ccache /usr/local/bin/
+  - ln -s /usr/bin/ccache /usr/local/clang-5.0.0/bin/clang
+  - ln -s /usr/bin/ccache /usr/local/clang-5.0.0/bin/clang++
   - which g++ gcc clang clang++ cc c++
   - mysql -uroot -e 'create database test_mysql;'
   - if [ "${TRAVIS_EVENT_TYPE}" == "cron" ]; then git pull https://github.com/TrinityCore/TrinityCore.git 3.3.5; fi;
