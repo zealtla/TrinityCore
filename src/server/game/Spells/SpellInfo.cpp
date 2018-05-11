@@ -3419,6 +3419,9 @@ bool _isPositiveEffectImpl(SpellInfo const* spellInfo, uint8 effIndex, std::unor
             // Permafrost (due to zero basepoint)
             if (spellInfo->SpellFamilyFlags[2] == 0x00000010)
                 return false;
+            // Arcane Missiles
+            if (spellInfo->SpellFamilyFlags[0] == 0x00000800)
+                return false;
             break;
         case SPELLFAMILY_WARRIOR:
             // Slam, Execute
@@ -3801,7 +3804,7 @@ void SpellInfo::_InitializeSpellPositivity()
         switch (Effects[i].ApplyAuraName)
         {
             // has other non positive effect?
-            // then it should be marked negative despite of targets (ex 8510, 8511, 8893, 10267)
+            // then it should be marked negative if has same target as negative effect (ex 8510, 8511, 8893, 10267)
             case SPELL_AURA_DUMMY:
             case SPELL_AURA_MOD_STUN:
             case SPELL_AURA_MOD_FEAR:
@@ -3809,9 +3812,13 @@ void SpellInfo::_InitializeSpellPositivity()
             case SPELL_AURA_TRANSFORM:
             case SPELL_AURA_MOD_ATTACKSPEED:
             case SPELL_AURA_MOD_DECREASE_SPEED:
-                if (!IsPositive())
-                    AttributesCu |= (SPELL_ATTR0_CU_NEGATIVE_EFF0 << i);
+            {
+                for (uint8 j = i + 1; j < MAX_SPELL_EFFECTS; ++j)
+                    if (!IsPositiveEffect(j) && Effects[i].TargetA.GetTarget() == Effects[j].TargetA.GetTarget() && Effects[i].TargetB.GetTarget() == Effects[j].TargetB.GetTarget())
+                        AttributesCu |= (SPELL_ATTR0_CU_NEGATIVE_EFF0 << i);
+
                 break;
+            }
             default:
                 break;
         }

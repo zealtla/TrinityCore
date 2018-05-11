@@ -114,7 +114,7 @@ pAuraEffectHandler AuraEffectHandler[TOTAL_AURAS]=
     &AuraEffect::HandleAuraModBlockPercent,                       // 51 SPELL_AURA_MOD_BLOCK_PERCENT
     &AuraEffect::HandleAuraModWeaponCritPercent,                  // 52 SPELL_AURA_MOD_WEAPON_CRIT_PERCENT
     &AuraEffect::HandleNoImmediateEffect,                         // 53 SPELL_AURA_PERIODIC_LEECH implemented in AuraEffect::PeriodicTick
-    &AuraEffect::HandleModHitChance,                              // 54 SPELL_AURA_MOD_HIT_CHANCE
+    &AuraEffect::HandleNoImmediateEffect,                         // 54 SPELL_AURA_MOD_HIT_CHANCE implemented in Unit::MeleeSpellMissChance
     &AuraEffect::HandleModSpellHitChance,                         // 55 SPELL_AURA_MOD_SPELL_HIT_CHANCE
     &AuraEffect::HandleAuraTransform,                             // 56 SPELL_AURA_TRANSFORM
     &AuraEffect::HandleModSpellCritChance,                        // 57 SPELL_AURA_MOD_SPELL_CRIT_CHANCE
@@ -1867,9 +1867,7 @@ void AuraEffect::HandleAuraModShapeshift(AuraApplication const* aurApp, uint8 mo
         if (!target->CanUseAttackType(BASE_ATTACK))
         {
             if (Item* pItem = target->ToPlayer()->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_MAINHAND))
-            {
-                target->ToPlayer()->_ApplyWeaponDamage(EQUIPMENT_SLOT_MAINHAND, pItem->GetTemplate(), nullptr, apply);
-            }
+                target->ToPlayer()->_ApplyWeaponDamage(EQUIPMENT_SLOT_MAINHAND, pItem->GetTemplate(), apply);
         }
     }
 
@@ -2277,10 +2275,9 @@ void AuraEffect::HandleAuraModDisarm(AuraApplication const* aurApp, uint8 mode, 
 
     Unit* target = aurApp->GetTarget();
 
-    AuraType type = GetAuraType();
-
     //Prevent handling aura twice
-    if ((apply) ? target->GetAuraEffectsByType(type).size() > 1 : target->HasAuraType(type))
+    AuraType type = GetAuraType();
+    if (apply ? target->GetAuraEffectsByType(type).size() > 1 : target->HasAuraType(type))
         return;
 
     uint32 field, flag, slot;
@@ -2309,8 +2306,10 @@ void AuraEffect::HandleAuraModDisarm(AuraApplication const* aurApp, uint8 mode, 
             return;
     }
 
-    // if disarm aura is to be removed, remove the flag first to reapply damage/aura mods
-    if (!apply)
+    // set/remove flag before weapon bonuses so it's properly reflected in CanUseAttackType
+    if (apply)
+        target->SetFlag(field, flag);
+    else
         target->RemoveFlag(field, flag);
 
     // Handle damage modification, shapeshifted druids are not affected
@@ -2324,16 +2323,12 @@ void AuraEffect::HandleAuraModDisarm(AuraApplication const* aurApp, uint8 mode, 
             player->ApplyItemDependentAuras(item, !apply);
             if (attackType != MAX_ATTACK)
             {
-                player->_ApplyWeaponDamage(slot, item->GetTemplate(), nullptr, !apply);
+                player->_ApplyWeaponDamage(slot, item->GetTemplate(), !apply);
                 if (!apply) // apply case already handled on item dependent aura removal (if any)
                     player->UpdateWeaponDependentAuras(attackType);
             }
         }
     }
-
-    // if disarm effects should be applied, wait to set flag until damage mods are unapplied
-    if (apply)
-        target->SetFlag(field, flag);
 
     if (target->GetTypeId() == TYPEID_UNIT && target->ToCreature()->GetCurrentEquipmentId())
         target->UpdateDamagePhysical(attType);
@@ -3811,27 +3806,6 @@ void AuraEffect::HandleAuraModWeaponCritPercent(AuraApplication const* aurApp, u
     target->UpdateAllWeaponDependentCritAuras();
 }
 
-void AuraEffect::HandleModHitChance(AuraApplication const* aurApp, uint8 mode, bool /*apply*/) const
-{
-    if (!(mode & (AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK | AURA_EFFECT_HANDLE_STAT)))
-        return;
-
-    Unit* target = aurApp->GetTarget();
-
-    // handle stack rules
-    if (target->GetTypeId() == TYPEID_PLAYER)
-    {
-        target->ToPlayer()->UpdateMeleeHitChances();
-        target->ToPlayer()->UpdateRangedHitChances();
-    }
-    else
-    {
-        float value = target->GetTotalAuraModifier(SPELL_AURA_MOD_HIT_CHANCE);
-        target->m_modMeleeHitChance = value;
-        target->m_modRangedHitChance = value;
-    }
-}
-
 void AuraEffect::HandleModSpellHitChance(AuraApplication const* aurApp, uint8 mode, bool apply) const
 {
     if (!(mode & (AURA_EFFECT_HANDLE_CHANGE_AMOUNT_MASK | AURA_EFFECT_HANDLE_STAT)))
@@ -4827,13 +4801,13 @@ void AuraEffect::HandleAuraModFaction(AuraApplication const* aurApp, uint8 mode,
     {
         target->SetFaction(GetMiscValue());
         if (target->GetTypeId() == TYPEID_PLAYER)
-            target->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PVP_ATTACKABLE);
+            target->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PLAYER_CONTROLLED);
     }
     else
     {
         target->RestoreFaction();
         if (target->GetTypeId() == TYPEID_PLAYER)
-            target->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PVP_ATTACKABLE);
+            target->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PLAYER_CONTROLLED);
     }
 }
 
@@ -4902,12 +4876,10 @@ void AuraEffect::HandleAuraLinked(AuraApplication const* aurApp, uint8 mode, boo
         if (apply)
         {
             Unit* caster = triggeredSpellInfo->NeedsToBeTriggeredByCaster(m_spellInfo) ? GetCaster() : target;
-
             if (!caster)
                 return;
 
             CastSpellExtraArgs args(this);
-
             if (GetAmount()) // If amount avalible cast with basepoints (Crypt Fever for example)
                 args.AddSpellMod(SPELLVALUE_BASE_POINT0, GetAmount());
 
@@ -4916,7 +4888,7 @@ void AuraEffect::HandleAuraLinked(AuraApplication const* aurApp, uint8 mode, boo
         else
         {
             ObjectGuid casterGUID = triggeredSpellInfo->NeedsToBeTriggeredByCaster(m_spellInfo) ? GetCasterGUID() : target->GetGUID();
-            target->RemoveAura(triggeredSpellId, casterGUID, 0, aurApp->GetRemoveMode());
+            target->RemoveAura(triggeredSpellId, casterGUID);
         }
     }
     else if (mode & AURA_EFFECT_HANDLE_REAPPLY && apply)
@@ -5191,7 +5163,7 @@ void AuraEffect::HandlePeriodicDamageAurasTick(Unit* target, Unit* caster) const
         damage = Unit::SpellCriticalDamageBonus(caster, m_spellInfo, damage, target);
 
     // Calculate armor mitigation
-    if (Unit::IsDamageReducedByArmor(GetSpellInfo()->GetSchoolMask(), GetSpellInfo(), GetEffIndex()))
+    if (Unit::IsDamageReducedByArmor(GetSpellInfo()->GetSchoolMask(), GetSpellInfo()))
     {
         uint32 damageReducedArmor = Unit::CalcArmorReducedDamage(caster, target, damage, GetSpellInfo(), GetSpellInfo()->GetAttackType(), GetBase()->GetCasterLevel());
         cleanDamage.mitigated_damage += damage - damageReducedArmor;
@@ -5276,7 +5248,7 @@ void AuraEffect::HandlePeriodicHealthLeechAuraTick(Unit* target, Unit* caster) c
         damage = Unit::SpellCriticalDamageBonus(caster, m_spellInfo, damage, target);
 
     // Calculate armor mitigation
-    if (Unit::IsDamageReducedByArmor(GetSpellInfo()->GetSchoolMask(), GetSpellInfo(), GetEffIndex()))
+    if (Unit::IsDamageReducedByArmor(GetSpellInfo()->GetSchoolMask(), GetSpellInfo()))
     {
         uint32 damageReducedArmor = Unit::CalcArmorReducedDamage(caster, target, damage, GetSpellInfo(), GetSpellInfo()->GetAttackType(), GetBase()->GetCasterLevel());
         cleanDamage.mitigated_damage += damage - damageReducedArmor;

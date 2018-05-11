@@ -44,12 +44,8 @@
 
 void GameObjectTemplate::InitializeQueryData()
 {
-    WorldPacket queryTemp;
     for (uint8 loc = LOCALE_enUS; loc < TOTAL_LOCALES; ++loc)
-    {
-        queryTemp = BuildQueryData(static_cast<LocaleConstant>(loc));
-        QueryData[loc] = queryTemp;
-    }
+        QueryData[loc] = BuildQueryData(static_cast<LocaleConstant>(loc));
 }
 
 WorldPacket GameObjectTemplate::BuildQueryData(LocaleConstant loc) const
@@ -86,7 +82,8 @@ WorldPacket GameObjectTemplate::BuildQueryData(LocaleConstant loc) const
             if (i < items->size())
                 queryTemp.Stats.QuestItems[i] = (*items)[i];
 
-    return *queryTemp.Write();
+    queryTemp.Write();
+    return queryTemp.Move();
 }
 
 bool QuaternionData::isUnit() const
@@ -529,10 +526,6 @@ void GameObject::Update(uint32 diff)
                         m_SkillupList.clear();
                         m_usetimes = 0;
 
-                        // If nearby linked trap exists, respawn it
-                        if (GameObject* linkedTrap = GetLinkedTrap())
-                            linkedTrap->SetLootState(GO_READY);
-
                         switch (GetGoType())
                         {
                             case GAMEOBJECT_TYPE_FISHINGNODE:   //  can't fish now
@@ -727,7 +720,7 @@ void GameObject::Update(uint32 diff)
         {
             // If nearby linked trap exists, despawn it
             if (GameObject* linkedTrap = GetLinkedTrap())
-                linkedTrap->SetLootState(GO_JUST_DEACTIVATED);
+                linkedTrap->DespawnOrUnsummon();
 
             //if Gameobject should cast spell, then this, but some GOs (type = 10) should be destroyed
             if (GetGoType() == GAMEOBJECT_TYPE_GOOBER)
