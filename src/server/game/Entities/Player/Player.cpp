@@ -14155,7 +14155,7 @@ void Player::PrepareGossipMenu(WorldObject* source, uint32 menuId /*= 0*/, bool 
                     canTalk = false;
                     break;
                 case GOSSIP_OPTION_TRAINER:
-                    if (getClass() != creature->GetCreatureTemplate()->trainer_class && creature->GetCreatureTemplate()->trainer_type == TRAINER_TYPE_CLASS)
+                    if (creature->GetCreatureTemplate()->trainer_class && getClass() != creature->GetCreatureTemplate()->trainer_class && creature->GetCreatureTemplate()->trainer_type == TRAINER_TYPE_CLASS)
                     {
                         TC_LOG_ERROR("sql.sql", "GOSSIP_OPTION_TRAINER:: Player %s (GUID: %u) requested wrong gossip menu: %u with wrong class: %u at Creature: %s (Entry: %u, Trainer Class: %u)",
                             GetName().c_str(), GetGUID().GetCounter(), menu->GetGossipMenu().GetMenuId(), getClass(), creature->GetName().c_str(), creature->GetEntry(), creature->GetCreatureTemplate()->trainer_class);
@@ -14341,7 +14341,7 @@ void Player::OnGossipSelect(WorldObject* source, uint32 gossipListId, uint32 men
             GetSession()->SendStablePet(guid);
             break;
         case GOSSIP_OPTION_TRAINER:
-            GetSession()->SendTrainerList(guid, menuItemData->GossipActionPoi);
+            GetSession()->SendTrainerList(guid, menuItemData->GossipActionMenuId);
             break;
         case GOSSIP_OPTION_LEARNDUALSPEC:
             if (GetSpecsCount() == 1 && getLevel() >= sWorld->getIntConfig(CONFIG_MIN_DUALSPEC_LEVEL))

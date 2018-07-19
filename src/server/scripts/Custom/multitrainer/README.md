@@ -1,10 +1,9 @@
 # Multitrainer [![Build Status](https://travis-ci.org/Rochet2/TrinityCore.svg?branch=multitrainer)](https://travis-ci.org/Rochet2/TrinityCore)
 
 #### About
-This patch was coded originally by Asandru.
-
+This patch was coded originally by Asandru.  
 Multitrainer allows you to show multiple different trainer windows on an NPC.
-Made compatible with player gossip.<br />
+
 Source: http://rochet2.github.io/Multitrainer.html
 
 #### Installation
@@ -29,9 +28,9 @@ Using diff:
 - use cmake and compile
 
 #### Usage
-In C++ you can pass the trainer entry to `SendTrainerList` function.
-For SQL in `world` database you can set the trainer entry to the `gossip_menu_option` table `ActionMenuID` column for an option that has `OptionType` 5.
-The NPC must be a working vendor, so it needs vendor npc flag.
+The NPC is required to have `npcflag` set to `17`. The `trainer_type` can be `0`.  
+In C++ you can pass the trainer entry to `SendTrainerList` function.  
+In SQL in `world` database you can set the trainer entry to the `gossip_menu_option` table `ActionMenuID` column for an option that has `OptionType` set to `5`.
 
 #### Bugs and Contact
 Report issues and similar to https://rochet2.github.io/

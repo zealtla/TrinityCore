@@ -122,38 +122,34 @@ void WorldSession::HandleTrainerListOpcode(WorldPacket& recvData)
     SendTrainerList(guid);
 }
 
-void WorldSession::SendTrainerList(ObjectGuid guid, uint32 trainerEntry, bool spell_cost)
+void WorldSession::SendTrainerList(ObjectGuid guid, uint32 trainerEntry)
 {
     std::string str = GetTrinityString(LANG_NPC_TAINER_HELLO);
-    SendTrainerList(guid, str, trainerEntry, spell_cost);
+    SendTrainerList(guid, str, trainerEntry);
 }
 
-void WorldSession::SendTrainerList(ObjectGuid guid, const std::string& strTitle, uint32 trainerEntry, bool spell_cost)
+void WorldSession::SendTrainerList(ObjectGuid guid, const std::string& strTitle, uint32 trainerEntry)
 {
-    SetCurrentTrainer(trainerEntry);
-    SetHasTrainerSpellCost(spell_cost);
-
-    Creature* unit = nullptr;
-    if (GetPlayer()->GetGUID() != guid)
+    Creature* unit = GetPlayer()->GetNPCIfCanInteractWith(guid, UNIT_NPC_FLAG_TRAINER);
+    if (!unit)
     {
-        unit = GetPlayer()->GetNPCIfCanInteractWith(guid, UNIT_NPC_FLAG_TRAINER);
-        if (!unit)
-        {
-            TC_LOG_DEBUG("network", "WORLD: SendTrainerList - %s not found or you can not interact with him.", guid.ToString().c_str());
-            return;
-        }
+        TC_LOG_DEBUG("network", "WORLD: SendTrainerList - %s not found or you can not interact with him.", guid.ToString().c_str());
+        return;
     }
 
     // remove fake death
     if (GetPlayer()->HasUnitState(UNIT_STATE_DIED))
         GetPlayer()->RemoveAurasByType(SPELL_AURA_FEIGN_DEATH);
 
-    TrainerSpellData const* trainer_spells = trainerEntry ? sObjectMgr->GetNpcTrainerSpells(trainerEntry) : unit ? unit->GetTrainerSpells() : nullptr;
+    TrainerSpellData const* trainer_spells = trainerEntry ? sObjectMgr->GetNpcTrainerSpells(trainerEntry) : unit->GetTrainerSpells();
     if (!trainer_spells)
     {
         TC_LOG_DEBUG("network", "WORLD: SendTrainerList - Training spells not found for %s", guid.ToString().c_str());
         return;
     }
+
+    SetCurrentTrainer(trainerEntry);
+    GetPlayer()->PlayerTalkClass->GetGossipMenu().SetSenderGUID(guid);
 
     WorldPacket data(SMSG_TRAINER_LIST, 8+4+4+trainer_spells->spellList.size()*38 + strTitle.size()+1);
     data << guid;
@@ -163,7 +159,7 @@ void WorldSession::SendTrainerList(ObjectGuid guid, const std::string& strTitle,
     data << uint32(trainer_spells->spellList.size());
 
     // reputation discount
-    float fDiscountMod = unit ? _player->GetReputationPriceDiscount(unit) : 1.0f;
+    float fDiscountMod = _player->GetReputationPriceDiscount(unit);
     bool can_learn_primary_prof = GetPlayer()->GetFreePrimaryProfessionPoints() > 0;
 
     uint32 count = 0;
@@ -193,7 +189,7 @@ void WorldSession::SendTrainerList(ObjectGuid guid, const std::string& strTitle,
 
         data << uint32(tSpell->SpellID);                    // learned spell (or cast-spell in profession case)
         data << uint8(state == TRAINER_SPELL_GREEN_DISABLED ? TRAINER_SPELL_GREEN : state);
-        data << uint32(spell_cost ? floor(tSpell->MoneyCost * fDiscountMod) : 0);
+        data << uint32(floor(tSpell->MoneyCost * fDiscountMod));
 
         data << uint32(primary_prof_first_rank && can_learn_primary_prof ? 1 : 0);
                                                             // primary prof. learn confirmation dialog
@@ -235,7 +231,6 @@ void WorldSession::SendTrainerList(ObjectGuid guid, const std::string& strTitle,
     data << strTitle;
 
     data.put<uint32>(count_pos, count);
-    GetPlayer()->PlayerTalkClass->GetGossipMenu().SetSenderGUID(guid);
     SendPacket(&data);
 }
 
@@ -247,15 +242,11 @@ void WorldSession::HandleTrainerBuySpellOpcode(WorldPacket& recvData)
     recvData >> guid >> spellId;
     TC_LOG_DEBUG("network", "WORLD: Received CMSG_TRAINER_BUY_SPELL %s, learn spell id is: %u", guid.ToString().c_str(), spellId);
 
-    Creature* trainer = nullptr;
-    if (guid != GetPlayer()->GetGUID())
+    Creature* trainer = GetPlayer()->GetNPCIfCanInteractWith(guid, UNIT_NPC_FLAG_TRAINER);
+    if (!trainer)
     {
-        trainer = GetPlayer()->GetNPCIfCanInteractWith(guid, UNIT_NPC_FLAG_TRAINER);
-        if (!trainer)
-        {
-            TC_LOG_DEBUG("network", "WORLD: HandleTrainerBuySpellOpcode - %s not found or you can not interact with him.", guid.ToString().c_str());
-            return;
-        }
+        TC_LOG_DEBUG("network", "WORLD: HandleTrainerBuySpellOpcode - %s not found or you can not interact with him.", guid.ToString().c_str());
+        return;
     }
 
     if (guid != GetPlayer()->PlayerTalkClass->GetGossipMenu().GetSenderGUID())
@@ -266,25 +257,19 @@ void WorldSession::HandleTrainerBuySpellOpcode(WorldPacket& recvData)
         GetPlayer()->RemoveAurasByType(SPELL_AURA_FEIGN_DEATH);
 
     // check race for mount trainers
-    if (trainer)
+    if (trainer->GetCreatureTemplate()->trainer_type == TRAINER_TYPE_MOUNTS)
     {
-        if (trainer->GetCreatureTemplate()->trainer_type == TRAINER_TYPE_MOUNTS)
-        {
-            if (uint32 trainerRace = trainer->GetCreatureTemplate()->trainer_race)
-                if (_player->getRace() != trainerRace)
-                    return;
-        }
+        if (uint32 trainerRace = trainer->GetCreatureTemplate()->trainer_race)
+            if (_player->getRace() != trainerRace)
+                return;
     }
 
     // check class for class trainers
-    if (trainer)
-    {
-        if (_player->getClass() != trainer->GetCreatureTemplate()->trainer_class && trainer->GetCreatureTemplate()->trainer_type == TRAINER_TYPE_CLASS)
-            return;
-    }
+    if (_player->getClass() != trainer->GetCreatureTemplate()->trainer_class && trainer->GetCreatureTemplate()->trainer_type == TRAINER_TYPE_CLASS)
+        return;
 
     // check present spell in trainer spell list
-    TrainerSpellData const* trainer_spells = GetCurrentTrainer() ? sObjectMgr->GetNpcTrainerSpells(GetCurrentTrainer()) : trainer ? trainer->GetTrainerSpells() : nullptr;
+    TrainerSpellData const* trainer_spells = GetCurrentTrainer() ? sObjectMgr->GetNpcTrainerSpells(GetCurrentTrainer()) : trainer->GetTrainerSpells();
     if (!trainer_spells)
         return;
 
@@ -298,17 +283,16 @@ void WorldSession::HandleTrainerBuySpellOpcode(WorldPacket& recvData)
         return;
 
     // apply reputation discount
-    uint32 nSpellCost = trainer ? uint32(floor(trainer_spell->MoneyCost * _player->GetReputationPriceDiscount(trainer))) : 1.0f;
+    uint32 nSpellCost = uint32(floor(trainer_spell->MoneyCost * _player->GetReputationPriceDiscount(trainer)));
 
     // check money requirement
-    if (!_player->HasEnoughMoney(nSpellCost) && HasTrainerSpellCost())
+    if (!_player->HasEnoughMoney(nSpellCost))
         return;
 
-    if (HasTrainerSpellCost())
-        _player->ModifyMoney(-int32(nSpellCost));
+    _player->ModifyMoney(-int32(nSpellCost));
 
-    trainer ? trainer->SendPlaySpellVisual(179) : GetPlayer()->SendPlaySpellVisual(179); // 53 SpellCastDirected
-    trainer ? trainer->SendPlaySpellImpact(_player->GetGUID(), 362) : GetPlayer()->SendPlaySpellImpact(_player->GetGUID(), 362); // 113 EmoteSalute
+    trainer->SendPlaySpellVisual(179); // 53 SpellCastDirected
+    trainer->SendPlaySpellImpact(_player->GetGUID(), 362); // 113 EmoteSalute
 
     // learn explicitly or cast explicitly
     if (trainer_spell->IsCastable())
