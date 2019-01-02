@@ -25,7 +25,7 @@ public:
         bool GossipSelect(Player* player, uint32 /*menuId*/, uint32 gossipListId) override
         {
             uint32 action = player->PlayerTalkClass->GetGossipOptionAction(gossipListId);
-            player->GetSession()->SendTrainerList(me->GetGUID(), action);
+            player->GetSession()->SendTrainerList(me, action);
             return true;
         }
     };
