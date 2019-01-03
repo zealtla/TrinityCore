@@ -16,7 +16,7 @@ public:
 
         bool GossipHello(Player* player) override
         {
-            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "TrainerTest 2489", GOSSIP_SENDER_MAIN, 2489);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "TrainerTest 33684", GOSSIP_SENDER_MAIN, 33684);
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, "TrainerTest 2704", GOSSIP_SENDER_MAIN, 2704);
             SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, me);
             return true;
