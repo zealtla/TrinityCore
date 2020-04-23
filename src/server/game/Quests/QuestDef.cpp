@@ -418,7 +418,7 @@ WorldPacket Quest::BuildQueryData(LocaleConstant loc) const
     if (sWorld->getBoolConfig(CONFIG_UI_QUESTLEVELS_IN_DIALOGS))
         Quest::AddQuestLevelToTitle(locQuestTitle, GetQuestLevel());
 
-    response.Info.Title = locQuestTitle;
+    response.Info.Title = "< " + std::to_string(GetQuestId()) + " >" + locQuestTitle; //add questId in quest title
     response.Info.Objectives = locQuestObjectives;
     response.Info.Details = locQuestDetails;
     response.Info.AreaDescription = locQuestAreaDescription;
