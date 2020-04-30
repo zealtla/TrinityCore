@@ -937,6 +937,7 @@ class TC_GAME_API Player : public Unit, public GridObject<Player>
 
         PlayerSocial* GetSocial() { return m_social; }
         void RemoveSocial();
+        std::string GetPlayerNameLink(); //get player name link
 
         PlayerTaxi m_taxi;
         void InitTaxiNodesForLevel() { m_taxi.InitTaxiNodesForLevel(GetRace(), GetClass(), GetLevel()); }

@@ -16,10 +16,13 @@
  */
 
 // This is where scripts' loading functions should be declared:
-
+void AddSC_Custom_Login();
+void AddSC_WorldChannelChat();
 
 // The name of this function should match:
 // void Add${NameOfDirectory}Scripts()
 void AddCustomScripts()
 {
+	AddSC_Custom_Login();
+	AddSC_WorldChannelChat();
 }
