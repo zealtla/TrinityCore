@@ -1,7 +1,7 @@
 # Multitrainer [![Build Status](https://travis-ci.org/Rochet2/TrinityCore.svg?branch=multitrainer_3.3.5)](https://travis-ci.org/Rochet2/TrinityCore)
 
 #### About
-This patch was coded originally by Asandru.  
+This patch was coded originally by [CyberMist2](https://github.com/CyberMist2).  
 Multitrainer allows you to show multiple different trainer windows on an NPC.
 
 Source: http://rochet2.github.io/Multitrainer.html
