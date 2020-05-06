@@ -32,7 +32,7 @@ public:
 
     void OnLogin(Player* player, bool /* firstLogin */) override
     {
-        ChatHandler(player->GetSession()).PSendSysMessage("|cffFFBDC0综合频道|r|cFF00FFFF默认为世界聊天频道，请勿刷屏和骂脏话！|r");
+        ChatHandler(player->GetSession()).PSendSysMessage("[|cffFFBDC0综合频道|r]|cFF00FFFF默认为世界聊天频道，请文明聊天！|r");
     }
 
     void OnChat(Player* player, uint32 /*type*/, uint32 lang, std::string& msg, Channel* channel) override

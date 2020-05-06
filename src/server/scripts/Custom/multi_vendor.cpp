@@ -4,9 +4,9 @@
 #include "WorldSession.h"
 #pragma execution_character_set("utf-8")
 
-#define GUIDE_0 "|cFF228B22|TInterface/ICONS/INV_Sword_27:30:30:-18:0|t新手武器|r"
-#define GUIDE_1 "|cFF228B22|TInterface/ICONS/INV_Chest_Chain_11:30:30:-18:0|t新手装备|r"
-#define GUIDE_2 "|cFF228B22|TInterface/ICONS/INV_Misc_Toy_05:30:30:-18:0|t新手杂物|r"
+#define GUIDE_0 "|TInterface/ICONS/INV_Sword_27:30:30:-18:0|t|cFF228B22新手武器|r"
+#define GUIDE_1 "|TInterface/ICONS/INV_Chest_Chain_11:30:30:-18:0|t|cFF228B22新手装备|r"
+#define GUIDE_2 "|TInterface/ICONS/INV_Misc_Toy_05:30:30:-18:0|t|cFF228B22新手杂物|r"
 
 #pragma region 新手商人
 class npc_newplayerguide : public CreatureScript

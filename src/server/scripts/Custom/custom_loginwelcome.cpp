@@ -2,10 +2,11 @@
 #include "Player.h"
 #include "Chat.h"
 #include <World\World.h>
+#include "ScriptedGossip.h"
 #pragma execution_character_set("utf-8")
 
-#define AllianceIcon "|cff3399FF[|TInterface/ICONS/Achievement_PVP_A_A:13|t联盟]|r"
-#define HordeIcon "|cffCC0000[|TInterface/ICONS/Achievement_PVP_H_H:13|t部落]|r"
+#define AllianceIcon "|cff3399FF[|r|TInterface/ICONS/Achievement_PVP_A_A:13|t|cff3399FF联盟]|r"
+#define HordeIcon "|cffCC0000[|r|TInterface/ICONS/Achievement_PVP_H_H:13|t|cffCC0000部落]|r"
 #define WelcomeIcon "|TInterface/ICONS/Achievement_BG_winbyten:13|t"
 #define CongraIcon "|TInterface/ICONS/Achievement_BG_trueAVshutout:13|t"
 
@@ -31,21 +32,18 @@ public:
                 std::ostringstream ss;
                 ss << WelcomeIcon << "|cffFF69B4" << "热烈欢迎|r" << HordeIcon << player->GetPlayerNameLink() << "|cffFF69B4" << "加入蚩尤魔兽|r";
                 sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());
-            }
+            }           
         }
         else
         {
             std::ostringstream ss;
-            ss << player->GetPlayerNameLink() << "上线了。";
-            sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());           
-        }
-    }
+            if (player->GetTeamId() == TEAM_ALLIANCE)            
+                ss << AllianceIcon << player->GetPlayerNameLink() << "上线了。";            
+            else
+                ss << HordeIcon << player->GetPlayerNameLink() << "上线了。";
 
-    void OnLogout(Player* player) override
-    {
-        std::ostringstream ss;
-        ss << player->GetName() << "下线了。";
-        sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());
+            sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());
+        }
     }
 };
 
