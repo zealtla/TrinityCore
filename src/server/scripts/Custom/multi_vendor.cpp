@@ -1,6 +1,8 @@
 #include "ScriptMgr.h"
 #include "ScriptedGossip.h"
 #include "Player.h"
+#include "Item.h"
+#include "Chat.h"
 #include "WorldSession.h"
 #pragma execution_character_set("utf-8")
 
@@ -37,13 +39,13 @@ public:
             switch (action)
             {
             case GOSSIP_ACTION_INFO_DEF + 1: //ÎäÆ÷
-                player->GetSession()->SendListInventory(me->GetGUID(), 224);
+                player->GetSession()->SendListInventory(me->GetGUID(), 90000);
                 break;
             case GOSSIP_ACTION_INFO_DEF + 2: //×°±¸
-                player->GetSession()->SendListInventory(me->GetGUID(), 35507);
+                player->GetSession()->SendListInventory(me->GetGUID(), 90001);
                 break;
             case GOSSIP_ACTION_INFO_DEF + 3: //ÔÓÎï
-                player->GetSession()->SendListInventory(me->GetGUID(), 151);
+                player->GetSession()->SendListInventory(me->GetGUID(), 90002);
                 break;
             }
             
@@ -60,5 +62,5 @@ public:
 
 void AddSC_npc_newplayerguide()
 {
-    new npc_newplayerguide();
+    new npc_newplayerguide();    
 }
