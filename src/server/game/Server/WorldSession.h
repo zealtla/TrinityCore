@@ -80,9 +80,13 @@ namespace WorldPackets
 {
     namespace Character
     {
+        class LogoutCancel;
+        class LogoutRequest;
         class ShowingCloak;
         class ShowingHelm;
+        class PlayerLogout;
     }
+
     namespace Chat
     {
         class EmoteClient;
@@ -417,7 +421,7 @@ class TC_GAME_API WorldSession
         bool isLogingOut() const { return _logoutTime || m_playerLogout; }
 
         /// Engage the logout process for the user
-        void LogoutRequest(time_t requestTime)
+        void SetLogoutStartTime(time_t requestTime)
         {
             _logoutTime = requestTime;
         }
@@ -447,7 +451,7 @@ class TC_GAME_API WorldSession
 
         void SendNameQueryOpcode(ObjectGuid guid);
 
-        void SendTrainerList(Creature* npc);
+        void SendTrainerList(Creature* npc, uint32 trainer_entry = 0);
         void SendListInventory(ObjectGuid guid, uint32 vendorEntry = 0);
         void SendShowBank(ObjectGuid guid);
         bool CanOpenMailBox(ObjectGuid guid);
@@ -523,6 +527,10 @@ class TC_GAME_API WorldSession
         // Account mute time
         bool CanSpeak() const;
         time_t m_muteTime;
+
+        // Multitrainer
+        uint32 GetCurrentTrainer() const { return m_current_trainer; }
+        void SetCurrentTrainer(uint32 entry) { m_current_trainer = entry; }
 
         // Locales
         LocaleConstant GetSessionDbcLocale() const { return m_sessionDbcLocale; }
@@ -621,9 +629,9 @@ class TC_GAME_API WorldSession
         void HandleLootReleaseOpcode(WorldPacket& recvPacket);
         void HandleLootMasterGiveOpcode(WorldPacket& recvPacket);
         void HandleWhoOpcode(WorldPacket& recvPacket);
-        void HandleLogoutRequestOpcode(WorldPacket& recvPacket);
-        void HandlePlayerLogoutOpcode(WorldPacket& recvPacket);
-        void HandleLogoutCancelOpcode(WorldPacket& recvPacket);
+        void HandleLogoutRequestOpcode(WorldPackets::Character::LogoutRequest& logoutRequest);
+        void HandlePlayerLogoutOpcode(WorldPackets::Character::PlayerLogout& playerLogout);
+        void HandleLogoutCancelOpcode(WorldPackets::Character::LogoutCancel& logoutCancel);
 
         // GM Ticket opcodes
         void HandleGMTicketCreateOpcode(WorldPacket& recvPacket);
@@ -1146,6 +1154,8 @@ class TC_GAME_API WorldSession
         uint32 _accountId;
         std::string _accountName;
         uint8 m_expansion;
+
+        uint32 m_current_trainer;
 
         // Warden
         Warden* _warden;                                    // Remains NULL if Warden system is not enabled by config
