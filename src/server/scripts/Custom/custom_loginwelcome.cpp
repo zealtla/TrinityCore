@@ -5,8 +5,8 @@
 #include "ScriptedGossip.h"
 #pragma execution_character_set("utf-8")
 
-#define AllianceIcon "|cff3399FF[|r|TInterface/ICONS/Achievement_PVP_A_A:13|t|cff3399FF選男]|r"
-#define HordeIcon "|cffCC0000[|r|TInterface/ICONS/Achievement_PVP_H_H:13|t|cffCC0000何鯛]|r"
+#define AllianceIcon "|cff3399FF[|r|TInterface/ICONS/Inv_misc_tournaments_banner_human:13|t|cff3399FF選男]|r"
+#define HordeIcon "|cffCC0000[|r|TInterface/ICONS/Inv_misc_tournaments_symbol_orc:13|t|cffCC0000何鯛]|r"
 #define WelcomeIcon "|TInterface/ICONS/Achievement_BG_winbyten:13|t"
 #define CongraIcon "|TInterface/ICONS/Achievement_BG_trueAVshutout:13|t"
 
