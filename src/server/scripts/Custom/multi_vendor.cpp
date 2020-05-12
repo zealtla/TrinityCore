@@ -7,39 +7,39 @@
 #pragma execution_character_set("utf-8")
 
 #pragma region Define
-#define GUIDE_0 "|TInterface/ICONS/INV_Sword_27:30:30:-18:0|t新手武器"
-#define GUIDE_1 "|TInterface/ICONS/INV_Chest_Chain_11:30:30:-18:0|t新手装备"
-#define GUIDE_2 "|TInterface/ICONS/INV_Misc_Toy_05:30:30:-18:0|t新手杂物"
+#define GUIDE_0 "|TInterface/ICONS/INV_Sword_27:30|t新手武器"
+#define GUIDE_1 "|TInterface/ICONS/INV_Chest_Chain_11:30|t新手装备"
+#define GUIDE_2 "|TInterface/ICONS/INV_Misc_Toy_05:30|t新手杂物"
 //vipgem
-#define VIPGEM_0 "|TInterface/ICONS/Spell_Arcane_PortalTheramore:30:30:-18:0|t主城"
-#define VIPGEM_1 "|TInterface/ICONS/Achievement_Zone_HillsbradFoothills:30:30:-18:0|t经典旧世地图"
-#define VIPGEM_2 "|TInterface/ICONS/Achievement_Zone_Outland_01:30:30:-18:0|t外域地图"
-#define VIPGEM_3 "|TInterface/ICONS/Ability_Druid_NaturalPerfection:30:30:-18:0|t五人副本"
-#define VIPGEM_4 "|TInterface/ICONS/Ability_Mage_FieryPayback:30:30:-18:0|t团队副本"
-#define VIPGEM_5 "|TInterface/ICONS/Racial_Dwarf_FindTreasure:30:30:-18:0|t辅助功能"
-#define CITY_0 "|TInterface/ICONS/Spell_arcane_teleportmoonglade:30:30:-18:0|t黑暗之门（玩家主城）"
-#define CITY_1 "|TInterface/ICONS/Spell_arcane_teleportshattrath:30:30:-18:0|t沙塔斯"
+#define VIPGEM_0 "|TInterface/ICONS/Spell_Arcane_PortalTheramore:30|t主城"
+#define VIPGEM_1 "|TInterface/ICONS/Achievement_Zone_HillsbradFoothills:30|t经典旧世地图"
+#define VIPGEM_2 "|TInterface/ICONS/Achievement_Zone_Outland_01:30|t外域地图"
+#define VIPGEM_3 "|TInterface/ICONS/Ability_Druid_NaturalPerfection:30|t五人副本"
+#define VIPGEM_4 "|TInterface/ICONS/Ability_Mage_FieryPayback:30|t团队副本"
+#define VIPGEM_5 "|TInterface/ICONS/Racial_Dwarf_FindTreasure:30|t辅助功能"
+#define CITY_0 "|TInterface/ICONS/Spell_arcane_teleportmoonglade:30|t黑暗之门（玩家主城）"
+#define CITY_1 "|TInterface/ICONS/Spell_arcane_teleportshattrath:30|t沙塔斯"
 //联盟
-#define CITY_2 "|TInterface/ICONS/Spell_Arcane_TeleportStormWind:30:30:-18:0|t暴风城"
-#define CITY_3 "|TInterface/ICONS/Achievement_Zone_Ironforge:30:30:-18:0|t铁炉堡"
-#define CITY_4 "|TInterface/ICONS/Achievement_Zone_Darnassus:30:30:-18:0|t达纳苏斯"
-#define CITY_5 "|TInterface/ICONS/Achievement_Zone_AzuremystIsle_01:30:30:-18:0|t埃索达"
+#define CITY_2 "|TInterface/ICONS/Spell_Arcane_TeleportStormWind:30|t暴风城"
+#define CITY_3 "|TInterface/ICONS/Achievement_Zone_Ironforge:30|t铁炉堡"
+#define CITY_4 "|TInterface/ICONS/Achievement_Zone_Darnassus:30|t达纳苏斯"
+#define CITY_5 "|TInterface/ICONS/Achievement_Zone_AzuremystIsle_01:30|t埃索达"
 //部落
-#define CITY_6 "|TInterface/ICONS/Achievement_Zone_Durotar:30:30:-18:0|t奥格瑞玛"
-#define CITY_7 "|TInterface/ICONS/Spell_arcane_teleportthunderbluff:30:30:-18:0|t雷霆崖"
-#define CITY_8 "|TInterface/ICONS/Spell_arcane_teleportundercity:30:30:-18:0|t幽暗城"
-#define CITY_9 "|TInterface/ICONS/Achievement_Zone_IsleOfQuelDanas:30:30:-18:0|t银月城"
+#define CITY_6 "|TInterface/ICONS/Achievement_Zone_Durotar:30|t奥格瑞玛"
+#define CITY_7 "|TInterface/ICONS/Spell_arcane_teleportthunderbluff:30|t雷霆崖"
+#define CITY_8 "|TInterface/ICONS/Spell_arcane_teleportundercity:30|t幽暗城"
+#define CITY_9 "|TInterface/ICONS/Achievement_Zone_IsleOfQuelDanas:30|t银月城"
 //大陆
-#define MAINLAND_0 "|TInterface/ICONS/Achievement_Zone_EasternKingdoms_01:30:30:-18:0|t东部王国"
-#define MAINLAND_1 "|TInterface/ICONS/Achievement_Zone_Kalimdor_01:30:30:-18:0|t卡利姆多"
+#define MAINLAND_0 "|TInterface/ICONS/Achievement_Zone_EasternKingdoms_01:30|t东部王国"
+#define MAINLAND_1 "|TInterface/ICONS/Achievement_Zone_Kalimdor_01:30|t卡利姆多"
 //外域地图 6
-#define OUTLAND_0 "|TInterface/ICONS/Achievement_Zone_Zangarmarsh:30:30:-18:0|t赞加沼泽"
-#define OUTLAND_1 "|TInterface/ICONS/Achievement_Zone_Terrokar:30:30:-18:0|t泰罗卡森林"
-#define OUTLAND_2 "|TInterface/ICONS/Achievement_Zone_BladesEdgeMtns_01:30:30:-18:0|t刀锋山"
-#define OUTLAND_3 "|TInterface/ICONS/Achievement_Zone_Nagrand_01:30:30:-18:0|t纳格兰"
-#define OUTLAND_4 "|TInterface/ICONS/Achievement_Zone_Netherstorm_01:30:30:-18:0|t虚空风暴"
-#define OUTLAND_5 "|TInterface/ICONS/Achievement_Zone_Shadowmoon:30:30:-18:0|t影月谷"
-#define OUTLAND_6 "|TInterface/ICONS/Achievement_Zone_HellfirePeninsula_01:30:30:-18:0|t地狱火半岛"
+#define OUTLAND_0 "|TInterface/ICONS/Achievement_Zone_Zangarmarsh:30|t赞加沼泽"
+#define OUTLAND_1 "|TInterface/ICONS/Achievement_Zone_Terrokar:30|t泰罗卡森林"
+#define OUTLAND_2 "|TInterface/ICONS/Achievement_Zone_BladesEdgeMtns_01:30|t刀锋山"
+#define OUTLAND_3 "|TInterface/ICONS/Achievement_Zone_Nagrand_01:30|t纳格兰"
+#define OUTLAND_4 "|TInterface/ICONS/Achievement_Zone_Netherstorm_01:30|t虚空风暴"
+#define OUTLAND_5 "|TInterface/ICONS/Achievement_Zone_Shadowmoon:30|t影月谷"
+#define OUTLAND_6 "|TInterface/ICONS/Achievement_Zone_HellfirePeninsula_01:30|t地狱火半岛"
 #pragma endregion
 
 //主菜单
@@ -50,8 +50,7 @@ void VipGemMainMenu(Player* player, Item* item)
     AddGossipItemFor(player, 5, VIPGEM_1, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 2);
     AddGossipItemFor(player, 5, VIPGEM_2, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 3);
     AddGossipItemFor(player, 5, VIPGEM_3, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 4);
-    AddGossipItemFor(player, 5, VIPGEM_4, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 5);
-    AddGossipItemFor(player, 5, VIPGEM_5, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 21);
+    AddGossipItemFor(player, 5, VIPGEM_4, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 5);    
 
     SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, item->GetGUID());
 }
@@ -98,16 +97,6 @@ void KalimdorMenu(Player* player, Item* item)
     AddGossipItemFor(player, 5, "冬泉谷", GOSSIP_SENDER_MAIN, 612);
     AddGossipItemFor(player, 0, "<-[主菜单]", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 20);
 
-    SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, item->GetGUID());
-}
-
-//辅助
-void VipHelper(Player* player, Item* item)
-{
-    ClearGossipMenuFor(player);
-    AddGossipItemFor(player, 1, "|TInterface/ICONS/Achievement_Character_Bloodelf_Female:30:30:-18:0|t召唤售卖NPC", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 22);
-    //显示蚩尤币余额
-    AddGossipItemFor(player, 0, "<-[主菜单]", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 20);
     SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, item->GetGUID());
 }
 
@@ -159,12 +148,15 @@ public:
             AddGossipItemFor(player, GOSSIP_ICON_VENDOR, GUIDE_2, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 3);
 
             player->TalkedToCreature(me->GetEntry(), me->GetGUID());
-            SendGossipMenuFor(player, player->GetGossipTextId(me), me->GetGUID());
+            SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, me->GetGUID());
             return true;
         }
 
         bool GossipSelect(Player* player, uint32 /*menuId*/, uint32 gossipListId) override
         {
+            if (!player)
+                return true;
+
             uint32 const action = player->PlayerTalkClass->GetGossipOptionAction(gossipListId);
             ClearGossipMenuFor(player);
 
@@ -214,6 +206,9 @@ public:
 
     void OnGossipSelect(Player* player, Item* item, uint32 sender, uint32 action) override
     {
+        if (!player)
+            return;
+
         ClearGossipMenuFor(player);
 
         switch (action)
@@ -242,9 +237,9 @@ public:
             break;
         case GOSSIP_ACTION_INFO_DEF + 4: //5人副本
             ClearGossipMenuFor(player); // Clears old options
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Zone_Kalimdor_01:30:30:-18:0|t卡利姆多副本", GOSSIP_SENDER_MAIN, 5010);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Zone_EasternKingdoms_01:30:30:-18:0|t东部王国副本", GOSSIP_SENDER_MAIN, 5015);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Zone_Outland_01:30:30:-18:0|t燃烧的远征副本", GOSSIP_SENDER_MAIN, 5025);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Zone_Kalimdor_01:30|t卡利姆多副本", GOSSIP_SENDER_MAIN, 5010);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Zone_EasternKingdoms_01:30|t东部王国副本", GOSSIP_SENDER_MAIN, 5015);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Zone_Outland_01:30|t燃烧的远征副本", GOSSIP_SENDER_MAIN, 5025);
             AddGossipItemFor(player, 0, "<-[主菜单]", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 20);
             SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, item->GetGUID());
             break;
@@ -302,35 +297,35 @@ public:
             break;
         case GOSSIP_ACTION_INFO_DEF + 5: //团队副本            
             ClearGossipMenuFor(player);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Zone_HillsbradFoothills:30:30:-18:0|t经典旧世团本", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 300);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Zone_Outland_01:30:30:-18:0|t燃烧的远征团本", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 301);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Zone_HillsbradFoothills:30|t经典旧世团本", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 300);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Zone_Outland_01:30|t燃烧的远征团本", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 301);
             AddGossipItemFor(player, 0, "<-[主菜单]", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 20);
             SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, item->GetGUID());
             break;
             //地球团本
         case GOSSIP_ACTION_INFO_DEF + 300:
             ClearGossipMenuFor(player);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Ability_mount_drake_red:30:30:-18:0|t奥妮克希亚的巢穴", GOSSIP_SENDER_MAIN, 6020);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_ossiriantheunscarred:30:30:-18:0|t安其拉废墟", GOSSIP_SENDER_MAIN, 6040);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_cthun:30:30:-18:0|t安其拉神庙", GOSSIP_SENDER_MAIN, 6045);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_nefarion:30:30:-18:0|t黑翼之巢", GOSSIP_SENDER_MAIN, 7010);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_ragnaros:30:30:-18:0|t熔火之心", GOSSIP_SENDER_MAIN, 7035);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_hakkar:30:30:-18:0|t祖尔格拉布", GOSSIP_SENDER_MAIN, 7080);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Ability_mount_drake_red:30|t奥妮克希亚的巢穴", GOSSIP_SENDER_MAIN, 6020);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_ossiriantheunscarred:30|t安其拉废墟", GOSSIP_SENDER_MAIN, 6040);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_cthun:30|t安其拉神庙", GOSSIP_SENDER_MAIN, 6045);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_nefarion:30|t黑翼之巢", GOSSIP_SENDER_MAIN, 7010);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_ragnaros:30|t熔火之心", GOSSIP_SENDER_MAIN, 7035);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_hakkar:30|t祖尔格拉布", GOSSIP_SENDER_MAIN, 7080);
             AddGossipItemFor(player, 0, "<-[主菜单]", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 20);
             SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, item->GetGUID());
             break;
             //tbc团本
         case GOSSIP_ACTION_INFO_DEF + 301:
             ClearGossipMenuFor(player);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_princemalchezaar_02:30:30:-18:0|t卡拉赞", GOSSIP_SENDER_MAIN, 7030);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_Zuljin:30:30:-18:0|t祖阿曼", GOSSIP_SENDER_MAIN, 7075);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_Illidan:30:30:-18:0|t黑暗神殿", GOSSIP_SENDER_MAIN, 8005);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_LadyVashj:30:30:-18:0|t盘牙水库", GOSSIP_SENDER_MAIN, 8010);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_gruulthedragonkiller:30:30:-18:0|t格鲁尔的巢穴", GOSSIP_SENDER_MAIN, 8015);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_Magtheridon:30:30:-18:0|t地狱火堡垒", GOSSIP_SENDER_MAIN, 8020);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_Kael'thasSunstrider_01:30:30:-18:0|t风暴要塞", GOSSIP_SENDER_MAIN, 8025);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_Archimonde :30:30:-18:0|t海加尔峰", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 214);
-            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_kiljaedan:30:30:-18:0|t太阳之井高地", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 215);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_princemalchezaar_02:30|t卡拉赞", GOSSIP_SENDER_MAIN, 7030);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_Zuljin:30|t祖阿曼", GOSSIP_SENDER_MAIN, 7075);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_Illidan:30|t黑暗神殿", GOSSIP_SENDER_MAIN, 8005);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_LadyVashj:30|t盘牙水库", GOSSIP_SENDER_MAIN, 8010);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_gruulthedragonkiller:30|t格鲁尔的巢穴", GOSSIP_SENDER_MAIN, 8015);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_Magtheridon:30|t地狱火堡垒", GOSSIP_SENDER_MAIN, 8020);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_Kael'thasSunstrider_01:30|t风暴要塞", GOSSIP_SENDER_MAIN, 8025);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_Archimonde :30|t海加尔峰", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 214);
+            AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_kiljaedan:30|t太阳之井高地", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 215);
             AddGossipItemFor(player, 0, "<-[主菜单]", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 20);
             SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, item->GetGUID());
             break;
@@ -725,122 +720,8 @@ public:
             break;
         
 #pragma endregion
-        case GOSSIP_ACTION_INFO_DEF + 21: //辅助功能
-            VipHelper(player, item);
-            break;
-        case GOSSIP_ACTION_INFO_DEF + 22: //售卖修理
-            CloseGossipMenuFor(player);            
-            player->SummonCreature(90003, player->GetPositionX(), player->GetPositionY(), player->GetPositionZ(), 0.0f, TEMPSUMMON_TIMED_DESPAWN, 2 * MINUTE * IN_MILLISECONDS);
-            break;
         }
         
-    }
-};
-#pragma endregion
-
-#pragma region 传送员
-class npc_telenpc : public CreatureScript
-{
-public:
-    npc_telenpc() : CreatureScript("npc_telenpc") {}
-    struct npc_telenpcAI : public ScriptedAI
-    {
-        npc_telenpcAI(Creature* creature) : ScriptedAI(creature) {}
-
-        bool GossipHello(Player* player) override
-        {
-            //战斗中不允许
-            if (player->IsInCombat())
-            {
-                CloseGossipMenuFor(player);
-                player->GetSession()->SendNotification("战斗中无法使用！");
-                return true;
-            }
-
-            ClearGossipMenuFor(player); // Clears old options
-            AddGossipItemFor(player, 5, VIPGEM_0, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
-            AddGossipItemFor(player, 5, VIPGEM_4, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 2);
-
-            player->TalkedToCreature(me->GetEntry(), me->GetGUID());
-            SendGossipMenuFor(player, player->GetGossipTextId(me), me->GetGUID());
-            return true;
-        }
-
-        bool GossipSelect(Player* player, uint32 /*menuId*/, uint32 gossipListId) override
-        {
-            uint32 const action = player->PlayerTalkClass->GetGossipOptionAction(gossipListId);
-            ClearGossipMenuFor(player);
-            switch (action)
-            {
-            case GOSSIP_ACTION_INFO_DEF + 1:
-                MainCityMenu(player, me);
-                break;
-            case GOSSIP_ACTION_INFO_DEF + 2:
-                ClearGossipMenuFor(player);
-                AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_princemalchezaar_02:30:30:-18:0|t卡拉赞", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 21);
-                AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_Zuljin:30:30:-18:0|t祖阿曼", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 22);
-                AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_Illidan:30:30:-18:0|t黑暗神殿", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 23);
-                AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_LadyVashj:30:30:-18:0|t盘牙水库", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 24);
-                AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_gruulthedragonkiller:30:30:-18:0|t格鲁尔的巢穴", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 25);
-                AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_Magtheridon:30:30:-18:0|t地狱火堡垒", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 26);
-                AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_Kael'thasSunstrider_01:30:30:-18:0|t风暴要塞", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 27);
-                AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_Boss_Archimonde :30:30:-18:0|t海加尔峰", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 28);
-                AddGossipItemFor(player, 5, "|TInterface/ICONS/Achievement_boss_kiljaedan:30:30:-18:0|t太阳之井高地", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 29);
-                AddGossipItemFor(player, 0, "<-[主菜单]", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 20);
-                SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, me->GetGUID());
-                break;
-            case GOSSIP_ACTION_INFO_DEF + 20: //主菜单
-                ClearGossipMenuFor(player); // Clears old options
-                AddGossipItemFor(player, 5, VIPGEM_0, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
-                AddGossipItemFor(player, 5, VIPGEM_4, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 2);
-                SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, me->GetGUID());
-                break;
-            case GOSSIP_ACTION_INFO_DEF + 21:// Karazhan
-                CloseGossipMenuFor(player);
-                player->TeleportTo(0, -11119.6f, -2011.42f, 47.09f, 0.65f);
-                break;
-            case GOSSIP_ACTION_INFO_DEF + 22:// Zul'Aman
-                CloseGossipMenuFor(player);
-                player->TeleportTo(530, 6851.09f, -7979.71f, 183.54f, 4.72f);
-                break;
-            case GOSSIP_ACTION_INFO_DEF + 23:// Black Temple
-                CloseGossipMenuFor(player);
-                player->TeleportTo(530, -3649.1f, 317.33f, 35.19f, 2.97f);
-                break;
-            case GOSSIP_ACTION_INFO_DEF + 24:// Coilfang Reservoir
-                CloseGossipMenuFor(player);
-                player->TeleportTo(530, 721.08f, 6846.77f, -68.75f, 0.34f);
-                break;
-            case GOSSIP_ACTION_INFO_DEF + 25:// Gruul's Lair
-                CloseGossipMenuFor(player);
-                player->TeleportTo(530, 3539.01f, 5082.36f, 1.69f, 0.0f);
-                break;
-            case GOSSIP_ACTION_INFO_DEF + 26:// Hellfire Citadel
-                CloseGossipMenuFor(player);
-                player->TeleportTo(530, -359.8366f, 3167.5708f, -98.0376f, 5.2976f);
-                break;
-            case GOSSIP_ACTION_INFO_DEF + 27:// Tempest Keep
-                CloseGossipMenuFor(player);
-                player->TeleportTo(530, 3087.62f, 1376.27f, 184.8f, 4.63f);
-                break;
-                //整理副本
-            case GOSSIP_ACTION_INFO_DEF + 28: //海加尔峰
-                CloseGossipMenuFor(player);
-                player->TeleportTo(1, -8177.89f, -4181.23f, -167.552f, 0.913338f);
-                break;
-            case GOSSIP_ACTION_INFO_DEF + 29: //太阳之井高地
-                CloseGossipMenuFor(player);
-                player->TeleportTo(530, 12574.1f, -6774.81f, 15.0904f, 3.13788f);
-                break;
-            }
-
-            return true;
-        }
-    };
-
-    CreatureAI* GetAI(Creature* creature) const override
-    {
-        return new npc_telenpcAI(creature);
     }
 };
 #pragma endregion
@@ -857,18 +738,27 @@ public:
 
         bool GossipHello(Player* player) override
         {
-            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Spell_Holy_DevineAegis:30:30:-18:0|t职业技能", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
-            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/INV_Scroll_11:30:30:-18:0|t商业技能", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 2);
-            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/INV_Scroll_12:30:30:-18:0|t辅助技能", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 3);
-            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Inv_misc_platnumdisks:30:30:-18:0|t重置天赋", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 4);
-
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Spell_Holy_DevineAegis:30|t职业技能", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Inv_sword_68:30|t武器技能", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 2);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/INV_Scroll_11:30|t商业技能", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 3);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/INV_Scroll_12:30|t生活技能", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 4);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Achievement_general:30|t|cFF0000FF开启双天赋|r", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 36,
+                "你确定要开启双天赋吗？\n费用：", 1000*GOLD, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Inv_misc_platnumdisks:30|t|cFF1E90FF重置天赋|r", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 5,
+                "你确定要重置天赋吗？\n费用：", player->ResetTalentsCost(), false);
+            AddGossipItemFor(player, 0, "|TInterface/COMMON/VOICECHAT-MUTED:15|t关闭", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 0);
             player->TalkedToCreature(me->GetEntry(), me->GetGUID());
-            SendGossipMenuFor(player, player->GetGossipTextId(me), me->GetGUID());
+            SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, me->GetGUID());
             return true;
         }
 
         bool GossipSelect(Player* player, uint32 /*menuId*/, uint32 gossipListId) override
         {
+            if (!player)
+                return true;
+
+            WorldSession* m_session = player->GetSession();
+            uint8 m_class = player->GetClass();
             uint32 const action = player->PlayerTalkClass->GetGossipOptionAction(gossipListId);
             ClearGossipMenuFor(player);
 
@@ -876,37 +766,208 @@ public:
             {
             case GOSSIP_ACTION_INFO_DEF + 1: //职业
                 ClearGossipMenuFor(player);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Spell_Holy_Power:30:30:-18:0|t战士", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 5);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Ability_Paladin_BeaconofLight:30:30:-18:0|t圣骑士", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 6);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Ability_hunter_runningshot:30:30:-18:0|t猎人", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 7);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Achievement_Boss_EdwinVancleef:30:30:-18:0|t盗贼", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 8);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Spell_Arcane_FocusedPower:30:30:-18:0|t法师", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 9);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Spell_Holy_PrayerofShadowProtection:30:30:-18:0|t术士", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 10);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Ability_Druid_ForceofNature:30:30:-18:0|t德鲁伊", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 11);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Spell_Holy_GuardianSpirit:30:30:-18:0|t牧师", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 12);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Spell_nature_bloodlust:30:30:-18:0|t萨满", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 13);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Spell_Holy_Power:30|t战士", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 6);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Ability_Paladin_BeaconofLight:30|t圣骑士", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 7);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Ability_hunter_runningshot:30|t猎人", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 8);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Achievement_Boss_EdwinVancleef:30|t盗贼", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 9);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Spell_Arcane_FocusedPower:30|t法师", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 10);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Spell_Holy_PrayerofShadowProtection:30|t术士", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 11);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Ability_Druid_ForceofNature:30|t德鲁伊", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 12);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Spell_Holy_GuardianSpirit:30|t牧师", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 13);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Spell_nature_bloodlust:30|t萨满", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 14);
                 AddGossipItemFor(player, 0, "<-[主菜单]", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 20);
-                SendGossipMenuFor(player, player->GetGossipTextId(me), me->GetGUID());
+                SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, me->GetGUID());
                 break;
-            case GOSSIP_ACTION_INFO_DEF + 2: //商业
-                break;
-            case GOSSIP_ACTION_INFO_DEF + 3: //辅助
-                break;
-            case GOSSIP_ACTION_INFO_DEF + 4: //重置天赋
-                break;
-            case GOSSIP_ACTION_INFO_DEF + 20: //重置天赋
+            case GOSSIP_ACTION_INFO_DEF + 3: //商业
                 ClearGossipMenuFor(player);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Spell_Holy_DevineAegis:30:30:-18:0|t职业技能", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/INV_Scroll_11:30:30:-18:0|t商业技能", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 2);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/INV_Scroll_12:30:30:-18:0|t辅助技能", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 3);
-                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Inv_misc_platnumdisks:30:30:-18:0|t重置天赋", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 4);
-                SendGossipMenuFor(player, player->GetGossipTextId(me), me->GetGUID());
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Inv_misc_pelt_wolf_01:30|t剥皮", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 21);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Trade_tailoring:30|t裁缝", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 22);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Inv_pick_02:30|t挖矿", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 23);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Trade_herbalism:30|t采药", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 24);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Trade_blacksmithing:30|t锻造", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 25);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Trade_engraving:30|t附魔", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 26);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Trade_engineering:30|t工程学", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 27);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Trade_alchemy:30|t炼金术", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 28);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Inv_inscription_tradeskill01:30|t铭文", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 29);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Trade_leatherworking:30|t制皮", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 30);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/INV_Jewelcrafting_Gem_14:30|t珠宝", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 31);
+                AddGossipItemFor(player, 0, "<-[主菜单]", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 20);
+                SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, me->GetGUID());
                 break;
-            case GOSSIP_ACTION_INFO_DEF + 5: //战士
-                player->GetSession()->SendTrainerList(me);
+            case GOSSIP_ACTION_INFO_DEF + 4: //辅助
+                ClearGossipMenuFor(player);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Trade_fishing:30|t钓鱼", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 32);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Spell_holy_sealofsacrifice:30|t急救", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 33);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Inv_misc_food_15:30|t烹饪", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 34);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Ability_mount_ridinghorse:30|t骑术", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 35);
+                AddGossipItemFor(player, 0, "<-[主菜单]", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 20);
+                SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, me->GetGUID());
                 break;
+            case GOSSIP_ACTION_INFO_DEF + 5: //重置天赋
+            {
+                if (player->GetLevel() < 10)
+                {
+                    CloseGossipMenuFor(player);
+                    return true;
+                }
+                // remove fake death
+                if (player->HasUnitState(UNIT_STATE_DIED))
+                    player->RemoveAurasByType(SPELL_AURA_FEIGN_DEATH);
+
+                if (!(player->ResetTalents()))
+                {
+                    m_session->SendNotification("你还没有分配任何天赋点。");
+                    CloseGossipMenuFor(player);
+                    return true;
+                }
+
+                player->SendTalentsInfoData(false);
+                me->CastSpell(player, 14867, true);                  //spell: "Untalent Visual Effect"
+                CloseGossipMenuFor(player);
+            }break;
+            case GOSSIP_ACTION_INFO_DEF + 20: //主菜单
+                ClearGossipMenuFor(player);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Spell_Holy_DevineAegis:30|t职业技能", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Inv_sword_68:30|t武器技能", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 2);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/INV_Scroll_11:30|t商业技能", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 3);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/INV_Scroll_12:30|t生活技能", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 4);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Achievement_general:30|t|cFF0000FF开启双天赋|r", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 36,
+                    "你确定要开启双天赋吗？\n费用：", 1000 * GOLD, false);
+                AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "|TInterface/ICONS/Inv_misc_platnumdisks:30|t|cFF1E90FF重置天赋|r", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 5,
+                    "你确定要重置天赋吗？\n费用：", player->ResetTalentsCost(), false);
+                AddGossipItemFor(player, 0, "|TInterface/COMMON/VOICECHAT-MUTED:15|t关闭", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 0);
+                SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, me->GetGUID());
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 0: //关闭
+                CloseGossipMenuFor(player);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 6: //战士
+            {
+                if (m_class != CLASS_WARRIOR) { CloseGossipMenuFor(player); return true; }
+                else { m_session->SendTrainerList(me, 914); }
+            }break;                
+            case GOSSIP_ACTION_INFO_DEF + 7: //骑士
+            {
+                if (m_class != CLASS_PALADIN){ CloseGossipMenuFor(player); return true; }
+                else { m_session->SendTrainerList(me, 928); }
+            }break;
+            case GOSSIP_ACTION_INFO_DEF + 8: //猎人
+            {
+                if (m_class != CLASS_HUNTER) { CloseGossipMenuFor(player); return true; }
+                else { m_session->SendTrainerList(me, 4138); }
+            }break;
+            case GOSSIP_ACTION_INFO_DEF + 9: //盗贼
+            {
+                if (m_class != CLASS_ROGUE) { CloseGossipMenuFor(player); return true; }
+                else
+                    m_session->SendTrainerList(me, 4584);               
+            }break;
+            case GOSSIP_ACTION_INFO_DEF + 10: //法师
+            {
+                if (m_class != CLASS_MAGE) { CloseGossipMenuFor(player); return true; }
+                else
+                    m_session->SendTrainerList(me, 331);
+            }break;
+            case GOSSIP_ACTION_INFO_DEF + 11: //术士
+            {
+                if (m_class != CLASS_WARLOCK) { CloseGossipMenuFor(player); return true; }
+                else
+                    m_session->SendTrainerList(me, 461);
+            }break;
+            case GOSSIP_ACTION_INFO_DEF + 12: //德鲁伊
+            {
+                if (m_class != CLASS_DRUID) { CloseGossipMenuFor(player); return true; }
+                else
+                    m_session->SendTrainerList(me, 4217);
+            }break;
+            case GOSSIP_ACTION_INFO_DEF + 13: //牧师
+            {
+                if (m_class != CLASS_PRIEST) { CloseGossipMenuFor(player); return true; }
+                else
+                    m_session->SendTrainerList(me, 4606);
+            }break;
+            case GOSSIP_ACTION_INFO_DEF + 14: //萨满
+            {
+                if (m_class != CLASS_SHAMAN) { CloseGossipMenuFor(player); return true; }
+                else
+                    m_session->SendTrainerList(me, 3032);
+            }break;
+            case GOSSIP_ACTION_INFO_DEF + 21: //剥皮                
+                m_session->SendTrainerList(me, 33618);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 22: //裁缝                
+                m_session->SendTrainerList(me, 33613);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 23: //采矿                
+                m_session->SendTrainerList(me, 33617);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 24: //采药                
+                m_session->SendTrainerList(me, 33616);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 25: //锻造                
+                m_session->SendTrainerList(me, 33609);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 26: //附魔                
+                m_session->SendTrainerList(me, 33610);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 27: //工程学                
+                m_session->SendTrainerList(me, 33611);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 28: //炼金术                
+                m_session->SendTrainerList(me, 33608);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 29: //铭文                
+                m_session->SendTrainerList(me, 33615);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 30: //制皮                
+                m_session->SendTrainerList(me, 33612);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 31: //珠宝                
+                m_session->SendTrainerList(me, 33614);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 32: //钓鱼                
+                m_session->SendTrainerList(me, 33623);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 33: //急救                
+                m_session->SendTrainerList(me, 33621);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 34: //烹饪                
+                m_session->SendTrainerList(me, 33619);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 35: //骑术                
+                m_session->SendTrainerList(me, 35100);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 2: //武器技能                
+                m_session->SendTrainerList(me, 11867);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 36: //双天赋
+            {
+                if (player->GetLevel() < 40)
+                {
+                    m_session->SendNotification("你的等级不够%d级，无法开启双天赋。", 40);
+                    CloseGossipMenuFor(player);
+                    return true;
+                }
+
+                if (player->GetSpecsCount() > 1)
+                {
+                    m_session->SendNotification("你已经开启过双天赋了。");
+                    CloseGossipMenuFor(player);
+                    return true;
+                }
+
+                //debug
+                //m_session->SendNotification("当前SpecsCount: %d", player->GetSpecsCount());
+
+                player->ModifyMoney(int32(-1000*GOLD));
+                player->CastSpell(player, 63680, true);
+                player->CastSpell(player, 63624, true);
+                player->UpdateSpecCount(2);
+                CloseGossipMenuFor(player);
+            }break;
             }
 
+            return true;
         }
     };
 
@@ -921,7 +982,6 @@ public:
 void AddSC_npc_newplayerguide()
 {
     new npc_newplayerguide();
-    new item_vipgem();
-    new npc_telenpc();
+    new item_vipgem();    
     new npc_synthesistrainer();
 }
