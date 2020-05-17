@@ -19,6 +19,8 @@
 void AddSC_Custom_Login();
 void AddSC_WorldChannelChat();
 void AddSC_npc_newplayerguide();
+void AddSC_custom_Items();
+void AddSC_npc_vip();
 
 // The name of this function should match:
 // void Add${NameOfDirectory}Scripts()
@@ -27,4 +29,6 @@ void AddCustomScripts()
 	AddSC_Custom_Login();
 	AddSC_WorldChannelChat();
 	AddSC_npc_newplayerguide();
+    AddSC_custom_Items();
+    AddSC_npc_vip();
 }

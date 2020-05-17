@@ -17,7 +17,7 @@
 #define VIPGEM_3 "|TInterface/ICONS/Ability_Druid_NaturalPerfection:30|t五人副本"
 #define VIPGEM_4 "|TInterface/ICONS/Ability_Mage_FieryPayback:30|t团队副本"
 #define VIPGEM_5 "|TInterface/ICONS/Racial_Dwarf_FindTreasure:30|t辅助功能"
-#define CITY_0 "|TInterface/ICONS/Spell_arcane_teleportmoonglade:30|t黑暗之门（玩家主城）"
+#define CITY_0 "|cFF228B22|TInterface/ICONS/Spell_arcane_teleportmoonglade:30|t黑暗之门（玩家主城）|r"
 #define CITY_1 "|TInterface/ICONS/Spell_arcane_teleportshattrath:30|t沙塔斯"
 //联盟
 #define CITY_2 "|TInterface/ICONS/Spell_Arcane_TeleportStormWind:30|t暴风城"
@@ -29,6 +29,9 @@
 #define CITY_7 "|TInterface/ICONS/Spell_arcane_teleportthunderbluff:30|t雷霆崖"
 #define CITY_8 "|TInterface/ICONS/Spell_arcane_teleportundercity:30|t幽暗城"
 #define CITY_9 "|TInterface/ICONS/Achievement_Zone_IsleOfQuelDanas:30|t银月城"
+#define CITY_10 "|TInterface/ICONS/Achievement_zone_stranglethorn_01:30|t藏宝海湾"
+#define CITY_11 "|TInterface/ICONS/Achievement_zone_tanaris_01:30|t加基森"
+#define CITY_12 "|TInterface/ICONS/Achievement_zone_barrens_01:30|t棘齿城"
 //大陆
 #define MAINLAND_0 "|TInterface/ICONS/Achievement_Zone_EasternKingdoms_01:30|t东部王国"
 #define MAINLAND_1 "|TInterface/ICONS/Achievement_Zone_Kalimdor_01:30|t卡利姆多"
@@ -112,6 +115,9 @@ void MainCityMenu(Player* player, Object* object)
         AddGossipItemFor(player, 5, CITY_3, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 9);
         AddGossipItemFor(player, 5, CITY_4, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 10);
         AddGossipItemFor(player, 5, CITY_5, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 11);
+        AddGossipItemFor(player, 5, CITY_10, GOSSIP_SENDER_MAIN, 700);
+        AddGossipItemFor(player, 5, CITY_11, GOSSIP_SENDER_MAIN, 701);
+        AddGossipItemFor(player, 5, CITY_12, GOSSIP_SENDER_MAIN, 702);
         AddGossipItemFor(player, 0, "<-[主菜单]", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 20);
 
         SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, object->GetGUID());
@@ -125,6 +131,9 @@ void MainCityMenu(Player* player, Object* object)
         AddGossipItemFor(player, 5, CITY_7, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 15);
         AddGossipItemFor(player, 5, CITY_8, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 16);
         AddGossipItemFor(player, 5, CITY_9, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 17);
+        AddGossipItemFor(player, 5, CITY_10, GOSSIP_SENDER_MAIN, 700);
+        AddGossipItemFor(player, 5, CITY_11, GOSSIP_SENDER_MAIN, 701);
+        AddGossipItemFor(player, 5, CITY_12, GOSSIP_SENDER_MAIN, 702);
         AddGossipItemFor(player, 0, "<-[主菜单]", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 20);
 
         SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, object->GetGUID());
@@ -372,6 +381,19 @@ public:
         case GOSSIP_ACTION_INFO_DEF + 17: //银月城
             CloseGossipMenuFor(player);
             player->TeleportTo(530, 9338.74f, -7277.27f, 13.7895f, 0.0f);
+            break;
+            //中立城市
+        case 701:
+            CloseGossipMenuFor(player);
+            player->TeleportTo(1, -7172.2626f, -3768.9331f, 8.634f, 2.26f);
+            break;
+        case 702: //棘齿城 -943.935 -3715.49 11.8385 1 棘齿城
+            CloseGossipMenuFor(player);
+            player->TeleportTo(1, -981.5548f, -3795.7236f, 5.3121f, 0.941f);
+            break;
+        case 700: //-14406.6 419.353 22.3907 0 藏宝海湾
+            CloseGossipMenuFor(player);
+            player->TeleportTo(0, -14291.8466f, 542.2787f, 8.837f, 4.349f);
             break;
 #pragma endregion 
             //主菜单
