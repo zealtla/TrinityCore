@@ -4,7 +4,11 @@
 #include "Item.h"
 #include "Chat.h"
 #include "WorldSession.h"
+#include "PassiveAI.h"
+#include "DatabaseEnv.h"
 #pragma execution_character_set("utf-8")
+
+#define ADV_0 "暂无宣传活动"
 
 #pragma region Vip
 /* 商城NPC entry:100006
@@ -22,7 +26,7 @@ public:
 
     struct npc_vipAI : public ScriptedAI
     {
-        npc_vipAI(Creature* creature) : ScriptedAI(creature) { }
+        npc_vipAI(Creature* creature) : ScriptedAI(creature), _talkCheckTimer(600000) { }
 
         bool GossipHello(Player* player) override
         {
@@ -32,6 +36,7 @@ public:
             AddGossipItemFor(player, GOSSIP_ICON_VENDOR, "|TInterface\\ICONS\\Achievement_BG_grab_cap_flagunderXseconds:30|t幻化物品", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 4);
             AddGossipItemFor(player, GOSSIP_ICON_VENDOR, "|TInterface\\ICONS\\Achievement_BG_masterofallBGs:30|t变身卡", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 5);
             AddGossipItemFor(player, GOSSIP_ICON_VENDOR, "|TInterface\\ICONS\\INV_Enchant_DreamShard_01:30|t杂物", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 6);
+            AddGossipItemFor(player, GOSSIP_ICON_VENDOR, "|cFF0000FF|TInterface\\ICONS\\Spell_holy_proclaimchampion:30|t〓领取积分〓|r", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 7);
             AddGossipItemFor(player, 7, "|TInterface/COMMON/VOICECHAT-MUTED:15|t关闭", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 0);
             
             SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, me->GetGUID());
@@ -69,12 +74,53 @@ public:
             case GOSSIP_ACTION_INFO_DEF + 6: //杂物
                 player->GetSession()->SendListInventory(me->GetGUID(), 100013);
                 break;
+            case GOSSIP_ACTION_INFO_DEF + 7: //领取积分
+            {
+                uint32 jf = 0;
+                QueryResult GetAccountId = CharacterDatabase.PQuery("SELECT `account` FROM `characters` WHERE `name` = '%s'", player->GetName());
+                if (GetAccountId)
+                {
+                    Field* field2 = GetAccountId->Fetch();
+                    uint32 AccountID = field2[0].GetInt32();
+                    QueryResult result = LoginDatabase.PQuery("SELECT `jf` FROM auth.`account` WHERE `id` = '%u'", AccountID);
+                    Field* fields = result->Fetch();
+                    if (result)
+                    {
+                        jf = fields[0].GetUInt32();
+                        if (jf > 0)
+                        {
+                            player->AddItem(99999, jf);
+
+                            LoginDatabase.PExecute("update auth.account set jf=0 where id= '%u' ", AccountID);
+                            player->GetSession()->SendNotification("|cff4CFF00积分领取成功，获得积分:[%d]!! ", jf);
+                        }
+                        else
+                            player->GetSession()->SendNotification("|cff4CFF00你没有积分领取，当前积分:[%d]!! ", jf);
+                    }
+                }
+
+                CloseGossipMenuFor(player);
+            }break;
             }
             
             return true;
         }
-    };
 
+        void UpdateAI(uint32 diff) override
+        {
+            if (diff < _talkCheckTimer)
+            {
+                _talkCheckTimer -= diff;
+                return;
+            }
+
+            _talkCheckTimer = 600000;
+            Talk(0);
+        }
+
+        uint32 _talkCheckTimer;
+    };
+   
     CreatureAI* GetAI(Creature* creature) const override
     {
         return new npc_vipAI(creature);
@@ -196,8 +242,82 @@ public:
 };
 #pragma endregion
 
+#pragma region 宣传活动
+class npc_advertise : public CreatureScript
+{
+public:
+    npc_advertise() : CreatureScript("npc_advertise") { }
+
+    struct npc_advertiseAI : public ScriptedAI
+    {
+        npc_advertiseAI(Creature* creature) : ScriptedAI(creature), _talkCheckTimer(1200000) { }
+
+        bool GossipHello(Player* player) override
+        {
+            AddGossipItemFor(player, 0, ADV_0, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
+            AddGossipItemFor(player, 7, "关闭", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 0);
+            SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, me->GetGUID());
+            return true;
+        }
+
+        bool GossipSelect(Player* player, uint32 /*menuId*/, uint32 gossipListId) override
+        {
+            if (!player)
+                return true;
+
+            uint32 const action = player->PlayerTalkClass->GetGossipOptionAction(gossipListId);
+            ClearGossipMenuFor(player);
+
+            switch (action)
+            {
+            case GOSSIP_ACTION_INFO_DEF + 0: //关闭
+                CloseGossipMenuFor(player);
+                break;
+            case GOSSIP_ACTION_INFO_DEF + 1: //ad
+                CloseGossipMenuFor(player);
+                break;
+            }
+
+            return true;
+        }
+
+        void UpdateAI(uint32 diff) override
+        {
+            if (diff < _talkCheckTimer)
+            {
+                _talkCheckTimer -= diff;
+                return;
+            }
+            else
+            {
+                _talkCheckTimer = 1200000;
+                //随机说话
+                uint8 r = urand(0, 2);
+                Talk(r);
+                //放烟花
+                if (r == 0)
+                    me->CastSpell(me, 26304, false);
+                else if (r == 1)
+                    me->CastSpell(me, 26325, false);
+                else
+                    me->CastSpell(me, 26327, false);
+            }            
+        }
+
+        uint32 _talkCheckTimer;
+        //uint32 _castChekTimer;
+    };
+
+    CreatureAI* GetAI(Creature* creature) const override
+    {
+        return new npc_advertiseAI(creature);
+    }
+};
+#pragma endregion
+
 void AddSC_npc_vip()
 {       
     new npc_vip();
     new npc_materialvendor();
+    new npc_advertise();
 }
